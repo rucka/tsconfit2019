@@ -1,0 +1,34 @@
+{
+  "name": "tsconf-2019",
+  "version": "0.0.0",
+  "description": "TSconf 2019 - The costs of abstraction",
+  "scripts": {
+    "yarn": "./yarn.sh ",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "prettier-fix": "prettier \"{src/**/*, src/*}.{js,ts,tsx,scss}\" --write",
+    "prettier-check": "prettier --list-different \"{src/**/*,src/*}.{js,ts,tsx,scss}\""
+  },
+  "keywords": [
+    "typescript",
+    "fp-ts",
+    "abstraction",
+    "tsconfig",
+    "typescript",
+    "softwarecraftmanship",
+    "coding",
+    "functional programming",
+    "benchmark"
+  ],
+  "author": "Gianluca Carucci <gianluca@carucci.org>, Massimiliano Mantione <massimiliano.mantione@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fp-ts": "^2.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.2",
+    "nodemon": "^1.19.1",
+    "prettier": "1.18.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  }
+}
