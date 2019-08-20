@@ -4,7 +4,8 @@
   "description": "TSconf 2019 - The costs of abstraction",
   "scripts": {
     "yarn": "./yarn.sh ",
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "start": "ts-node src/index.ts",
+    "watch": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "prettier-fix": "prettier \"{src/**/*, src/*}.{js,ts,tsx,scss}\" --write",
     "prettier-check": "prettier --list-different \"{src/**/*,src/*}.{js,ts,tsx,scss}\""
   },
