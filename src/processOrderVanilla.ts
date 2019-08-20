@@ -21,8 +21,18 @@ const calculateAmountService = (order: Order) => {
   }
   return Promise.resolve(total)
 }
+const placeOrderService = (order: Order) =>
+  calculateAmountService(order).then(
+    totalAmount =>
+      ({
+        success: true,
+        totalAmount
+      } as { success: true; totalAmount: number })
+  )
 
-export const processOrderVanilla: ProcessOrder = (orderId: string) =>
+const processOrder: ProcessOrder = (orderId: string) =>
   orderService(orderId)
     .then(validationService)
-    .then(calculateAmountService)
+    .then(placeOrderService)
+
+export default processOrder

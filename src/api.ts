@@ -4,7 +4,7 @@ export type Book = { name: string; author: string; price: number }
 export type Order = { date: Date; items: OrderLine[] }
 export type OrderLine = { bookId: string; quantity: number }
 
-export type EvaluateOrder = (orderId: string) => Promise<number>
+export type EvaluateOrder = (orderId: string) => Promise<{success: true, totalAmount: number}>
 //service1 get order
 //service2 validate order
 //if not valid show error
