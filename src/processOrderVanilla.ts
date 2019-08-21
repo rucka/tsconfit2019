@@ -1,6 +1,11 @@
 import { orders, books } from './data'
 import { validateOrder, Order, ProcessOrder, PlaceOrderResult } from './api'
 
+const bookService = (bookId: string) =>
+  books[bookId]
+    ? Promise.resolve(books[bookId])
+    : Promise.reject(new Error(`Book not found: ${bookId}`))
+
 const orderService = (orderId: string) =>
   orders[orderId]
     ? Promise.resolve(orders[orderId])
@@ -13,14 +18,17 @@ const validationService = (order: Order) => {
     return Promise.reject(new Error(`${r.error}`))
   }
 }
-const calculateAmountService = (order: Order) => {
+
+const calculateAmountService = async (order: Order) => {
   let total = 0
   for (let i = 0; i < order.items.length; i++) {
     const item = order.items[i]
-    total += item.quantity * books[item.bookId].price
+    const book = await bookService(item.bookId)
+    total += item.quantity * book.price
   }
-  return Promise.resolve(total)
+  return total
 }
+
 const placeOrderService = (order: Order) =>
   calculateAmountService(order).then(
     totalAmount =>

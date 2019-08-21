@@ -1,8 +1,15 @@
 import { pipe } from 'fp-ts/lib/pipeable'
-import { orders, books } from './data'
-import { validateOrder, Order, ProcessOrder, PlaceOrderResult } from './api'
+import { array } from 'fp-ts/lib/Array'
 import { Either, isLeft } from 'fp-ts/lib/Either'
 import { taskEither, chain, map } from 'fp-ts/lib/TaskEither'
+import { orders, books } from './data'
+import {
+  validateOrder,
+  Order,
+  ProcessOrder,
+  PlaceOrderResult,
+  Book
+} from './api'
 
 const evaluateEither = <T>(ma: Either<Error, T>) => {
   if (isLeft(ma)) {
@@ -10,6 +17,11 @@ const evaluateEither = <T>(ma: Either<Error, T>) => {
   }
   return ma.right
 }
+
+const bookService = (bookId: string) =>
+  books[bookId]
+    ? taskEither.of<Error, Book>(books[bookId])
+    : taskEither.throwError<Error, Book>(new Error(`Book not found: ${bookId}`))
 
 const orderService = (orderId: string) =>
   orders[orderId]
@@ -23,19 +35,17 @@ const validationService = (order: Order) => {
   if (r.valid) {
     return taskEither.of<Error, Order>(order)
   } else {
-    return taskEither.throwError<Error, Order>(
-      new Error(`${r.error}`)
-    )
+    return taskEither.throwError<Error, Order>(new Error(`${r.error}`))
   }
 }
 
 const calculateAmountService = (order: Order) => {
-  let total = 0
-  for (let i = 0; i < order.items.length; i++) {
-    const item = order.items[i]
-    total += item.quantity * books[item.bookId].price
-  }
-  return taskEither.of<Error, number>(total)
+  const booksAmountTask = order.items.map(item =>
+    map<Book, number>(b => b.price * item.quantity)(bookService(item.bookId))
+  )
+  return map<number[], number>(amounts => {
+    return amounts.reduce((a, b) => a + b, 0)
+  })(array.sequence(taskEither)(booksAmountTask))
 }
 
 const placeOrderService = (order: Order) =>
