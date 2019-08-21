@@ -1,5 +1,5 @@
 import { orders, books } from './data'
-import { validateOrder, Order, EvaluateOrder as ProcessOrder } from './api'
+import { validateOrder, Order, ProcessOrder, PlaceOrderResult } from './api'
 
 const orderService = (orderId: string) =>
   orders[orderId]
@@ -27,7 +27,7 @@ const placeOrderService = (order: Order) =>
       ({
         success: true,
         totalAmount
-      } as { success: true; totalAmount: number })
+      } as PlaceOrderResult)
   )
 
 const processOrder: ProcessOrder = (orderId: string) =>
