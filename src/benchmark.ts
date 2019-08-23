@@ -34,7 +34,7 @@ const benchmark = async (configuration: BenchmarkConfiguration) => {
       configuration.failureRate,
       configuration.warmup
     )
-    runner(processor)(warmUpIterator)
+    await runner(processor)(warmUpIterator)
   }
   const benchmarkIterator = orderIdIterator(
     configuration.ids,
