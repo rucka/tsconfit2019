@@ -4,6 +4,13 @@ import processOrderVanilla from './processOrderVanilla'
 import porcessOrderFp from './porcessOrderFp'
 import { ProcessOrder } from './api'
 import { runner } from './misc'
+import { readFileSync } from 'fs'
+
+const config = JSON.parse(readFileSync(__dirname + '/params.json', 'utf8')) as {
+  warmup: number
+  epoch: number
+  failureRate: number
+}
 
 const processName = process.argv[2]
 
@@ -48,9 +55,9 @@ export async function get(): Promise<BenchmarkConfiguration> {
   return {
     name: processName,
     processor: processOrder,
-    warmup: 0,
-    epoch: 200000,
-    failureRate: 0.01,
+    warmup: config.warmup,
+    epoch: config.epoch,
+    failureRate: config.failureRate,
     ids
   }
 }
