@@ -9,7 +9,7 @@ export type PlaceOrderResult = {
   totalAmount: number
 }
 export type ProcessOrder = (orderId: string) => Promise<PlaceOrderResult>
-export type Processor<T> = (orderId: string) => Promise<T>
+export type Processor = (orderId: string) => Promise<void>
 
 export type OrderNotValid = 'NoItems' | 'BookNotExists'
 export function validateOrder(

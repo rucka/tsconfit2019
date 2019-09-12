@@ -1,6 +1,6 @@
 import { Processor } from './api'
 
-export const runner = <T>(processor: Processor<T>) => async (
+export const runner = (processor: Processor) => async (
   ids: IterableIterator<string> | Iterable<string>
 ) => {
   for (let id of ids) {

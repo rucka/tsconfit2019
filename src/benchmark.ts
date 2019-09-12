@@ -22,7 +22,7 @@ function* orderIdIterator(
 }
 
 const benchmark = async (configuration: BenchmarkConfiguration) => {
-  const processor: Processor<void> = (orderId: string) =>
+  const processor: Processor = (orderId: string) =>
     configuration
       .processor(orderId)
       .then(() => {})
