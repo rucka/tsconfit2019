@@ -1,0 +1,14 @@
+[package]
+name = "rust-demo-code"
+version = "0.1.0"
+authors = ["Massimiliano Mantione <massimiliano.mantione@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+futures-preview = "=0.3.0-alpha.18"
+futures-core-preview = "=0.3.0-alpha.18"
+futures-sink-preview = "=0.3.0-alpha.18"
+futures-util-preview = { version = "=0.3.0-alpha.18", features = ["sink"] }
+chrono = "0.4"
+lazy_static = "1.4.0"
+#tokio = "=0.2.0-alpha.4"
