@@ -1,11 +1,13 @@
-use crate::data::{BOOKS, ORDERS};
+use crate::data::BOOKS;
+use async_trait::async_trait;
+use std::future::Future;
 use std::str::FromStr;
 
 #[derive(Clone)]
 pub struct Book {
-    name: String,
-    author: String,
-    price: f64,
+    pub name: String,
+    pub author: String,
+    pub price: f64,
 }
 
 impl Book {
@@ -20,8 +22,8 @@ impl Book {
 
 #[derive(Clone)]
 pub struct OrderLine {
-    book_id: String,
-    quantity: i32,
+    pub book_id: String,
+    pub quantity: i32,
 }
 
 impl OrderLine {
@@ -35,8 +37,8 @@ impl OrderLine {
 
 #[derive(Clone)]
 pub struct Order {
-    date: chrono::NaiveDateTime,
-    items: Vec<OrderLine>,
+    pub date: chrono::NaiveDateTime,
+    pub items: Vec<OrderLine>,
 }
 
 impl Order {
@@ -69,6 +71,16 @@ impl OrderSuccessful {
 }
 
 pub type PlaceOrderResult = Result<OrderSuccessful, OrderNotValid>;
+
+#[async_trait]
+pub trait ProcessOrder {
+    async fn process(&self, order_id: &String) -> PlaceOrderResult;
+}
+
+#[async_trait]
+pub trait Processor {
+    async fn process(&self, order_id: &String) -> ();
+}
 
 pub fn validate_order(order: &Order) -> ValidationResult {
     if order.items.len() == 0 {

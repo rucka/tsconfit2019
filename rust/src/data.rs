@@ -69,3 +69,11 @@ lazy_static! {
         m
     };
 }
+
+pub fn get_book(id: &String) -> Option<&'static Book> {
+    BOOKS.get(id)
+}
+
+pub fn get_order(id: &String) -> Option<&'static Order> {
+    ORDERS.get(id)
+}
