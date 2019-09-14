@@ -78,7 +78,7 @@ pub trait ProcessOrder {
 
 #[async_trait]
 pub trait Processor {
-    async fn process(&self, order_id: &String) -> ();
+    async fn process(&self, order_id: &String) -> f64;
 }
 
 pub fn validate_order(order: &Order) -> ValidationResult {

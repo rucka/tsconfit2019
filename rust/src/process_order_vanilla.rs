@@ -39,12 +39,6 @@ async fn place_order_service(order: &Order) -> PlaceOrderResult {
 pub struct VanillaProcessOrder {}
 
 #[async_trait]
-impl Processor for VanillaProcessOrder {
-    async fn process(&self, _order_id: &String) -> () {
-        ()
-    }
-}
-#[async_trait]
 impl ProcessOrder for VanillaProcessOrder {
     async fn process(&self, order_id: &String) -> PlaceOrderResult {
         let order = get_order(order_id);
@@ -54,6 +48,23 @@ impl ProcessOrder for VanillaProcessOrder {
                 Ok(_) => Ok(OrderSuccessful::new(0.0)),
                 Err(err) => Err(err),
             },
+        }
+    }
+}
+
+#[async_trait]
+impl Processor for VanillaProcessOrder {
+    async fn process(&self, order_id: &String) -> f64 {
+        let order = order_service(order_id).await;
+        match order {
+            Some(order) => {
+                let validation = validate_order(&order);
+                match validation {
+                    Ok(_) => calculate_amount_service(order).await,
+                    _ => 0.0,
+                }
+            }
+            _ => 0.0,
         }
     }
 }

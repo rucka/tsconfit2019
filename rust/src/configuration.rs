@@ -29,8 +29,8 @@ impl ProcessOrder for NullProcessOrder {
 
 #[async_trait]
 impl Processor for NullProcessOrder {
-    async fn process(&self, _order_id: &String) -> () {
-        ()
+    async fn process(&self, _order_id: &String) -> f64 {
+        0.0
     }
 }
 
