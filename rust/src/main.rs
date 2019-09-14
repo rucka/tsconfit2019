@@ -4,6 +4,8 @@ use futures::executor::LocalPool;
 mod api;
 mod configuration;
 mod data;
+mod process_order_fp;
+mod process_order_vanilla;
 
 async fn main_async() -> () {
     get_configuration(ProcessorKind::Null).await.run().await;

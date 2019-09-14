@@ -1,5 +1,6 @@
 use crate::api::*;
 use crate::data::{get_order, ORDERS};
+use crate::process_order_vanilla::VanillaProcessOrder;
 use async_trait::async_trait;
 use std::time::{Duration, Instant};
 
@@ -18,13 +19,10 @@ impl ProcessOrder for NullProcessOrder {
         let order = get_order(order_id);
         match order {
             None => Err(OrderNotValid::NoItems),
-            Some(o) => {
-                if o.items.len() > 0 {
-                    Ok(OrderSuccessful::new(0.0))
-                } else {
-                    Err(OrderNotValid::NoItems)
-                }
-            }
+            Some(o) => match validate_order(o) {
+                Ok(_) => Ok(OrderSuccessful::new(0.0)),
+                Err(err) => Err(err),
+            },
         }
     }
 }
@@ -48,7 +46,7 @@ impl NullProcessOrder {
 impl ProcessorKind {
     pub fn get_process_order(&self) -> &dyn ProcessOrder {
         match self {
-            ProcessorKind::Vanilla => NullProcessOrder::process_order(),
+            ProcessorKind::Vanilla => VanillaProcessOrder::process_order(),
             ProcessorKind::Fp => NullProcessOrder::process_order(),
             ProcessorKind::Null => NullProcessOrder::process_order(),
         }
@@ -56,7 +54,7 @@ impl ProcessorKind {
 
     pub fn get_processor(&self) -> &dyn Processor {
         match self {
-            ProcessorKind::Vanilla => NullProcessOrder::processor(),
+            ProcessorKind::Vanilla => VanillaProcessOrder::processor(),
             ProcessorKind::Fp => NullProcessOrder::processor(),
             ProcessorKind::Null => NullProcessOrder::processor(),
         }

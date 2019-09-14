@@ -1,6 +1,5 @@
 use crate::data::BOOKS;
 use async_trait::async_trait;
-use std::future::Future;
 use std::str::FromStr;
 
 #[derive(Clone)]
