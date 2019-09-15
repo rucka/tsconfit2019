@@ -95,20 +95,21 @@ impl BenchmarkConfiguration {
         self.kind.name()
     }
 
-    pub fn report(&self, duration: Duration) {
+    pub fn report(&self, duration: Duration, total: f64) {
         println!(
-            "{}\t duration {}\t\t warmup {}\t iter {}\t failure {}",
+            "{}\t duration {}\t\t warmup {}\t iter {}\t failure {}\t total {}",
             self.name(),
             duration.as_millis(),
             self.warmup,
             self.epoch,
-            self.failure_rate
+            self.failure_rate,
+            total
         );
     }
 
     pub async fn run(&self) {
-        let duration = benchmark(self).await;
-        self.report(duration);
+        let (duration, total) = benchmark(self).await;
+        self.report(duration, total);
     }
 }
 
@@ -140,9 +141,10 @@ pub async fn runner(
     iterations: usize,
     failure_rate: f64,
     ids: &BenchmarkIds,
-) {
+) -> f64 {
     let mut ok_counter: usize = 0;
     let mut ko_counter: usize = 0;
+    let mut total = 0.0;
 
     while ok_counter + ko_counter < iterations {
         let id = if ok_counter > 0 && (ko_counter as f64) / (ok_counter as f64) < failure_rate {
@@ -154,11 +156,12 @@ pub async fn runner(
             ok_counter += 1;
             id
         };
-        processor.process(id).await;
+        total += processor.process(id).await;
     }
+    total
 }
 
-pub async fn benchmark(config: &BenchmarkConfiguration) -> Duration {
+pub async fn benchmark(config: &BenchmarkConfiguration) -> (Duration, f64) {
     runner(
         config.processor(),
         config.warmup as usize,
@@ -167,12 +170,12 @@ pub async fn benchmark(config: &BenchmarkConfiguration) -> Duration {
     )
     .await;
     let start = Instant::now();
-    runner(
+    let total = runner(
         config.processor(),
         config.epoch as usize,
         config.failure_rate,
         &config.ids,
     )
     .await;
-    start.elapsed()
+    (start.elapsed(), total)
 }

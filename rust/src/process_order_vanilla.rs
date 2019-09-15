@@ -58,9 +58,15 @@ impl Processor for VanillaProcessOrder {
         let order = order_service(order_id).await;
         match order {
             Some(order) => {
-                let validation = validate_order(&order);
+                let validation = validation_service(&order).await;
                 match validation {
-                    Ok(_) => calculate_amount_service(order).await,
+                    Ok(_) => {
+                        calculate_amount_service(order).await;
+                        match place_order_service(order).await {
+                            Ok(res) => res.amount,
+                            Err(_) => 0.0,
+                        }
+                    }
                     _ => 0.0,
                 }
             }
