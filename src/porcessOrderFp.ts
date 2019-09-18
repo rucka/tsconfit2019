@@ -40,12 +40,15 @@ const validationService = (order: Order) => {
 }
 
 const calculateAmountService = (order: Order) => {
-  const booksAmountTask = order.items.map(item =>
-    map<Book, number>(b => b.price * item.quantity)(bookService(item.bookId))
+  return pipe(
+    order.items.map(item =>
+      map<Book, number>(b => b.price * item.quantity)(bookService(item.bookId))
+    ),
+    array.sequence(taskEither),
+    map(amounts => {
+      return amounts.reduce((a, b) => a + b, 0)
+    })
   )
-  return map<number[], number>(amounts => {
-    return amounts.reduce((a, b) => a + b, 0)
-  })(array.sequence(taskEither)(booksAmountTask))
 }
 
 const placeOrderService = (order: Order) =>
