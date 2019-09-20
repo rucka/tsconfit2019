@@ -1,5 +1,5 @@
 import { orders, books } from './data'
-import { validateOrder, Order, Processor, PlacedOrderResult } from './api'
+import { validateOrder, Order, AsyncProcessor, PlacedOrderResult } from './api'
 
 const bookService = (bookId: string) =>
   books[bookId]
@@ -38,7 +38,9 @@ const placeOrderService = (order: Order) =>
       } as PlacedOrderResult)
   )
 
-const processor: Processor = (orderId: string): Promise<PlacedOrderResult> => {
+const processor: AsyncProcessor = (
+  orderId: string
+): Promise<PlacedOrderResult> => {
   return orderService(orderId)
     .then(validationService)
     .then(placeOrderService)
@@ -49,4 +51,5 @@ const processor: Processor = (orderId: string): Promise<PlacedOrderResult> => {
       }
     })
 }
+
 export default processor

@@ -8,7 +8,8 @@ export type PlacedOrderResult = {
   success: boolean
   totalAmount: number
 }
-export type Processor = (orderId: string) => Promise<PlacedOrderResult>
+export type SyncProcessor = (orderId: string) => PlacedOrderResult
+export type AsyncProcessor = (orderId: string) => Promise<PlacedOrderResult>
 
 export type OrderNotValid = 'NoItems' | 'BookNotExists'
 export type OrderValidationResult =

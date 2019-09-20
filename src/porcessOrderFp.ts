@@ -3,7 +3,13 @@ import { array } from 'fp-ts/lib/Array'
 import { Either, isLeft } from 'fp-ts/lib/Either'
 import { taskEither, chain, map } from 'fp-ts/lib/TaskEither'
 import { orders, books } from './data'
-import { validateOrder, Order, Processor, PlacedOrderResult, Book } from './api'
+import {
+  validateOrder,
+  Order,
+  AsyncProcessor,
+  PlacedOrderResult,
+  Book
+} from './api'
 
 const evaluateEither = <T>(ma: Either<Error, T>) => {
   if (isLeft(ma)) {
@@ -60,7 +66,7 @@ const placeOrderService = (order: Order) =>
     )
   )
 
-const processor: Processor = (orderId: string) =>
+const processor: AsyncProcessor = (orderId: string) =>
   pipe(
     orderService(orderId),
     chain(validationService),
