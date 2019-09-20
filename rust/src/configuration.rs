@@ -1,70 +1,68 @@
 use crate::api::*;
-use crate::data::{get_order, ORDERS};
-use crate::process_order_vanilla::VanillaProcessOrder;
-use async_trait::async_trait;
+use crate::data::BENCHMARK_IDS;
+use crate::process_order_fp::FpProcessor;
+use crate::process_order_vanilla::VanillaProcessor;
+use crate::process_order_vanilla_sync::VanillaProcessorSync;
 use std::time::{Duration, Instant};
 
+const WARMUP_COUNT: i32 = 200000;
+const EPOCH_COUNT: i32 = 10000000;
+
 #[derive(Clone, Copy, PartialEq, Eq)]
-pub enum ProcessorKind {
+pub enum AsyncProcessorKind {
     Vanilla,
     Fp,
-    Null,
 }
 
-struct NullProcessOrder {}
-
-#[async_trait]
-impl ProcessOrder for NullProcessOrder {
-    async fn process(&self, order_id: &String) -> PlaceOrderResult {
-        let order = get_order(order_id);
-        match order {
-            None => Err(OrderNotValid::NoItems),
-            Some(o) => match validate_order(o) {
-                Ok(_) => Ok(OrderSuccessful::new(0.0)),
-                Err(err) => Err(err),
-            },
-        }
-    }
-}
-
-#[async_trait]
-impl Processor for NullProcessOrder {
-    async fn process(&self, _order_id: &String) -> f64 {
-        0.0
-    }
-}
-
-impl NullProcessOrder {
-    pub fn process_order() -> &'static dyn ProcessOrder {
-        &(NullProcessOrder {}) as &dyn ProcessOrder
-    }
-    pub fn processor() -> &'static dyn Processor {
-        &(NullProcessOrder {}) as &dyn Processor
-    }
-}
-
-impl ProcessorKind {
-    pub fn get_process_order(&self) -> &dyn ProcessOrder {
+impl AsyncProcessorKind {
+    pub fn processor(&self) -> &dyn AsyncProcessor {
         match self {
-            ProcessorKind::Vanilla => VanillaProcessOrder::process_order(),
-            ProcessorKind::Fp => NullProcessOrder::process_order(),
-            ProcessorKind::Null => NullProcessOrder::process_order(),
-        }
-    }
-
-    pub fn get_processor(&self) -> &dyn Processor {
-        match self {
-            ProcessorKind::Vanilla => VanillaProcessOrder::processor(),
-            ProcessorKind::Fp => NullProcessOrder::processor(),
-            ProcessorKind::Null => NullProcessOrder::processor(),
+            AsyncProcessorKind::Vanilla => VanillaProcessor::processor(),
+            AsyncProcessorKind::Fp => FpProcessor::processor(),
         }
     }
 
     pub fn name(&self) -> &'static str {
         match self {
-            ProcessorKind::Vanilla => "vanilla",
-            ProcessorKind::Fp => "fp",
-            ProcessorKind::Null => "null",
+            AsyncProcessorKind::Vanilla => "vanilla",
+            AsyncProcessorKind::Fp => "fp",
+        }
+    }
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum SyncProcessorKind {
+    Vanilla,
+    //Fp,
+}
+
+impl SyncProcessorKind {
+    pub fn processor(&self) -> &dyn SyncProcessor {
+        match self {
+            SyncProcessorKind::Vanilla => VanillaProcessorSync::processor(),
+            // SyncProcessorKind::Fp => VanillaProcessor::processor(),
+        }
+    }
+
+    pub fn name(&self) -> &'static str {
+        match self {
+            SyncProcessorKind::Vanilla => "syncv",
+            // SyncProcessorKind::Fp => "syncfp",
+        }
+    }
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum ProcessorKind {
+    SyncKind(SyncProcessorKind),
+    AsyncKind(AsyncProcessorKind),
+}
+
+impl ProcessorKind {
+    pub fn name(&self) -> &'static str {
+        match self {
+            ProcessorKind::SyncKind(kind) => kind.name(),
+            ProcessorKind::AsyncKind(kind) => kind.name(),
         }
     }
 }
@@ -79,69 +77,58 @@ pub struct BenchmarkConfiguration {
     pub warmup: i32,
     pub failure_rate: f64,
     pub epoch: i32,
-    pub ids: BenchmarkIds,
 }
 
-impl BenchmarkConfiguration {
-    pub fn process_order(&self) -> &dyn ProcessOrder {
-        self.kind.get_process_order()
-    }
-
-    pub fn processor(&self) -> &dyn Processor {
-        self.kind.get_processor()
-    }
-
-    pub fn name(&self) -> &'static str {
-        self.kind.name()
-    }
-
-    pub fn report(&self, duration: Duration, total: f64) {
-        println!(
-            "{}\t duration {}\t\t warmup {}\t iter {}\t failure {}\t total {}",
-            self.name(),
-            duration.as_millis(),
-            self.warmup,
-            self.epoch,
-            self.failure_rate,
-            total
-        );
-    }
-
-    pub async fn run(&self) {
-        let (duration, total) = benchmark(self).await;
-        self.report(duration, total);
-    }
-}
-
-pub async fn get_configuration(kind: ProcessorKind) -> BenchmarkConfiguration {
-    let mut ids = BenchmarkIds {
-        ok: vec![],
-        ko: vec![],
-    };
-
-    let process_order = kind.get_process_order();
-    for id in ORDERS.keys() {
-        match process_order.process(id).await {
-            Ok(_) => ids.ok.push(id.clone()),
-            Err(_) => ids.ko.push(id.clone()),
-        }
-    }
-
+fn get_configuration(kind: ProcessorKind) -> BenchmarkConfiguration {
     BenchmarkConfiguration {
         kind,
-        warmup: 1000000,
+        warmup: WARMUP_COUNT,
         failure_rate: 0.01,
-        epoch: 1000000,
-        ids,
+        epoch: EPOCH_COUNT,
     }
 }
 
-pub async fn runner(
-    processor: &dyn Processor,
+pub struct RunnerResult {
+    pub ok_counter: usize,
+    pub ko_counter: usize,
+    pub total: f64,
+}
+
+pub fn sync_runner(
+    processor: &dyn SyncProcessor,
     iterations: usize,
     failure_rate: f64,
     ids: &BenchmarkIds,
-) -> f64 {
+) -> RunnerResult {
+    let mut ok_counter: usize = 0;
+    let mut ko_counter: usize = 0;
+    let mut total = 0.0;
+
+    while ok_counter + ko_counter < iterations {
+        let id = if ok_counter > 0 && (ko_counter as f64) / (ok_counter as f64) < failure_rate {
+            let id = &ids.ko[ko_counter % ids.ko.len()];
+            ko_counter += 1;
+            id
+        } else {
+            let id = &ids.ok[ok_counter % ids.ok.len()];
+            ok_counter += 1;
+            id
+        };
+        total += processor.process(id);
+    }
+    RunnerResult {
+        total,
+        ok_counter,
+        ko_counter,
+    }
+}
+
+pub async fn async_runner(
+    processor: &dyn AsyncProcessor,
+    iterations: usize,
+    failure_rate: f64,
+    ids: &BenchmarkIds,
+) -> RunnerResult {
     let mut ok_counter: usize = 0;
     let mut ko_counter: usize = 0;
     let mut total = 0.0;
@@ -158,24 +145,51 @@ pub async fn runner(
         };
         total += processor.process(id).await;
     }
-    total
+    RunnerResult {
+        total,
+        ok_counter,
+        ko_counter,
+    }
 }
 
-pub async fn benchmark(config: &BenchmarkConfiguration) -> (Duration, f64) {
-    runner(
-        config.processor(),
-        config.warmup as usize,
-        config.failure_rate,
-        &config.ids,
-    )
-    .await;
+pub async fn benchmark(kind: ProcessorKind) -> (Duration, RunnerResult) {
+    let config = get_configuration(kind);
+
+    match config.kind {
+        ProcessorKind::SyncKind(kind) => sync_runner(
+            kind.processor(),
+            config.warmup as usize,
+            config.failure_rate,
+            &BENCHMARK_IDS,
+        ),
+        ProcessorKind::AsyncKind(kind) => {
+            async_runner(
+                kind.processor(),
+                config.warmup as usize,
+                config.failure_rate,
+                &BENCHMARK_IDS,
+            )
+            .await
+        }
+    };
+
     let start = Instant::now();
-    let total = runner(
-        config.processor(),
-        config.epoch as usize,
-        config.failure_rate,
-        &config.ids,
-    )
-    .await;
-    (start.elapsed(), total)
+    let runner_result = match config.kind {
+        ProcessorKind::SyncKind(kind) => sync_runner(
+            kind.processor(),
+            config.epoch as usize,
+            config.failure_rate,
+            &BENCHMARK_IDS,
+        ),
+        ProcessorKind::AsyncKind(kind) => {
+            async_runner(
+                kind.processor(),
+                config.epoch as usize,
+                config.failure_rate,
+                &BENCHMARK_IDS,
+            )
+            .await
+        }
+    };
+    (start.elapsed(), runner_result)
 }

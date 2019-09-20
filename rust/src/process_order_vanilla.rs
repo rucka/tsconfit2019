@@ -17,7 +17,7 @@ async fn validation_service(order: &Order) -> Result<&Order, OrderNotValid> {
     }
 }
 
-async fn calculate_amount_service(order: &Order) -> f64 {
+async fn calculate_amount_service(order: &Order) -> (f64, &Order) {
     let mut total = 0.0;
     for item in &order.items {
         let book = book_service(&item.book_id).await;
@@ -28,45 +28,28 @@ async fn calculate_amount_service(order: &Order) -> f64 {
             _ => {}
         };
     }
-    total
+    (total, order)
 }
 
-async fn place_order_service(order: &Order) -> PlaceOrderResult {
-    let amount = calculate_amount_service(order).await;
-    Ok(OrderSuccessful::new(amount))
+async fn place_order_service(order: &Order) -> PlacedOrderResult {
+    let result = calculate_amount_service(order).await;
+    Ok(OrderSuccessful::new(result.0))
 }
 
-pub struct VanillaProcessOrder {}
+pub struct VanillaProcessor {}
 
 #[async_trait]
-impl ProcessOrder for VanillaProcessOrder {
-    async fn process(&self, order_id: &String) -> PlaceOrderResult {
-        let order = get_order(order_id);
-        match order {
-            None => Err(OrderNotValid::NoItems),
-            Some(o) => match validate_order(o) {
-                Ok(_) => Ok(OrderSuccessful::new(0.0)),
-                Err(err) => Err(err),
-            },
-        }
-    }
-}
-
-#[async_trait]
-impl Processor for VanillaProcessOrder {
+impl AsyncProcessor for VanillaProcessor {
     async fn process(&self, order_id: &String) -> f64 {
         let order = order_service(order_id).await;
         match order {
             Some(order) => {
                 let validation = validation_service(&order).await;
                 match validation {
-                    Ok(_) => {
-                        calculate_amount_service(order).await;
-                        match place_order_service(order).await {
-                            Ok(res) => res.amount,
-                            Err(_) => 0.0,
-                        }
-                    }
+                    Ok(_) => match place_order_service(order).await {
+                        Ok(res) => res.amount,
+                        Err(_) => 0.0,
+                    },
                     _ => 0.0,
                 }
             }
@@ -75,11 +58,8 @@ impl Processor for VanillaProcessOrder {
     }
 }
 
-impl VanillaProcessOrder {
-    pub fn process_order() -> &'static dyn ProcessOrder {
-        &(VanillaProcessOrder {}) as &dyn ProcessOrder
-    }
-    pub fn processor() -> &'static dyn Processor {
-        &(VanillaProcessOrder {}) as &dyn Processor
+impl VanillaProcessor {
+    pub fn processor() -> &'static dyn AsyncProcessor {
+        &(VanillaProcessor {}) as &dyn AsyncProcessor
     }
 }

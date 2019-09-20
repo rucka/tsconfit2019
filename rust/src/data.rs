@@ -1,10 +1,30 @@
 use crate::api::*;
+use crate::configuration::BenchmarkIds;
 use lazy_static::*;
 use std::collections::HashMap;
 use std::str::FromStr;
 
 fn s(text: &str) -> String {
     String::from_str(text).unwrap()
+}
+
+fn categorize_ids() -> BenchmarkIds {
+    let mut ids = BenchmarkIds {
+        ok: vec![],
+        ko: vec![],
+    };
+
+    for id in ORDERS.keys() {
+        match get_order(id) {
+            Some(order) => match validate_order(order) {
+                Ok(_) => ids.ok.push(id.clone()),
+                Err(_) => ids.ko.push(id.clone()),
+            },
+            None => ids.ko.push(id.clone()),
+        }
+    }
+
+    ids
 }
 
 lazy_static! {
@@ -68,6 +88,7 @@ lazy_static! {
         m.insert(s("5"), Order::new(2019, 1, 5, &[OrderLine::new("4", 3)]));
         m
     };
+    pub static ref BENCHMARK_IDS: BenchmarkIds = categorize_ids();
 }
 
 pub fn get_book(id: &String) -> Option<&'static Book> {

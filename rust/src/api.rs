@@ -69,15 +69,14 @@ impl OrderSuccessful {
     }
 }
 
-pub type PlaceOrderResult = Result<OrderSuccessful, OrderNotValid>;
+pub type PlacedOrderResult = Result<OrderSuccessful, OrderNotValid>;
 
-#[async_trait]
-pub trait ProcessOrder {
-    async fn process(&self, order_id: &String) -> PlaceOrderResult;
+pub trait SyncProcessor {
+    fn process(&self, order_id: &String) -> f64;
 }
 
 #[async_trait]
-pub trait Processor {
+pub trait AsyncProcessor {
     async fn process(&self, order_id: &String) -> f64;
 }
 
