@@ -1,10 +1,10 @@
-import { get as getConfiguration } from './configuration'
-import benchmark from './benchmark'
+import { get as getConfiguration, benchmark } from './configuration'
 ;(async () => {
   const configuration = await getConfiguration()
-  const timeInMs = await benchmark(configuration)
+  const [timeInMs, result] = await benchmark(configuration)
+  let iterInUsec = (1000 * timeInMs) / configuration.epoch
   console.log(
-    `${configuration.name}\t\t${configuration.failureRate}\t\t${configuration.warmup}\t\t${configuration.epoch}\t\t${timeInMs} ms`
+    `${configuration.name}\ttime ms ${timeInMs}\t iter us ${iterInUsec}\twarmup \t${configuration.warmup}\titer ${configuration.epoch}\t(ok ${result.ok_counter} ko ${result.ko_counter})\ttotal ${result.total}`
   )
   process.exit(0)
 })()

@@ -1,8 +1,7 @@
-import { orders } from './data'
-
-import processOrderVanilla from './processOrderVanilla'
-import porcessOrderFp from './porcessOrderFp'
-import { ProcessOrder } from './api'
+import processorVanilla from './processOrderVanilla'
+import porcessorFp from './porcessOrderFp'
+import { categorizedOrderIds } from './data'
+import { Processor } from './api'
 import { readFileSync } from 'fs'
 
 const config = JSON.parse(readFileSync(__dirname + '/params.json', 'utf8')) as {
@@ -13,48 +12,82 @@ const config = JSON.parse(readFileSync(__dirname + '/params.json', 'utf8')) as {
 
 const processName = process.argv[2]
 
-const getProcessOrder = (processName: string) => {
-  if (processName === 'vanilla') return processOrderVanilla
-  if (processName === 'fp') return porcessOrderFp
+const getProcessor = (processName: string) => {
+  if (processName === 'vanilla') return processorVanilla
+  if (processName === 'fp') return porcessorFp
   throw new Error('Process not recognized')
 }
-const processOrder = getProcessOrder(processName)
+const processor = getProcessor(processName)
 
-const splitInErrorProcess = (f: ProcessOrder) => (orderId: string) =>
-  f(orderId)
-    .then(() => ({ success: true, orderId }))
-    .catch(() => ({ success: false, orderId }))
-const processor = splitInErrorProcess(processOrder)
-
+export type BenchmarkIds = { ok: string[]; ko: string[] }
 export type BenchmarkConfiguration = {
   name: string
-  processor: ProcessOrder
+  processor: Processor
   warmup: number
   failureRate: number
   epoch: number
-  ids: { ok: string[]; ko: string[] }
 }
 
 export async function get(): Promise<BenchmarkConfiguration> {
-  const ok: string[] = []
-  const ko: string[] = []
-
-  for (let id of Object.keys(orders)) {
-    const r = await processor(id)
-    if (r.success) {
-      ok.push(id)
-    } else {
-      ko.push(id)
-    }
-  }
-  const ids = { ok, ko }
-
   return {
     name: processName,
-    processor: processOrder,
+    processor: processor,
     warmup: config.warmup,
     epoch: config.epoch,
-    failureRate: config.failureRate,
-    ids
+    failureRate: config.failureRate
   }
+}
+
+export type RunnerResult = {
+  ok_counter: number
+  ko_counter: number
+  total: number
+}
+
+export async function runner(
+  processor: Processor,
+  iterations: number,
+  failure_rate: number,
+  ids: BenchmarkIds
+): Promise<RunnerResult> {
+  let ok_counter = 0
+  let ko_counter = 0
+  let total = 0.0
+
+  while (ok_counter + ko_counter < iterations) {
+    let id = ''
+    if (ok_counter > 0 && ko_counter / ok_counter < failure_rate) {
+      id = ids.ko[ko_counter % ids.ko.length]
+      ko_counter += 1
+    } else {
+      id = ids.ok[ok_counter % ids.ok.length]
+      ok_counter += 1
+    }
+    total += (await processor(id)).totalAmount
+  }
+  return {
+    ok_counter,
+    ko_counter,
+    total
+  }
+}
+
+export async function benchmark(
+  config: BenchmarkConfiguration
+): Promise<[number, RunnerResult]> {
+  await runner(
+    config.processor,
+    config.warmup,
+    config.failureRate,
+    categorizedOrderIds
+  )
+  const start = new Date().getTime()
+  let result = await runner(
+    config.processor,
+    config.epoch,
+    config.failureRate,
+    categorizedOrderIds
+  )
+  const end = new Date().getTime()
+  return [end - start, result]
 }

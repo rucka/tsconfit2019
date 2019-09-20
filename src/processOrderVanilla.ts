@@ -1,5 +1,5 @@
 import { orders, books } from './data'
-import { validateOrder, Order, ProcessOrder, PlaceOrderResult } from './api'
+import { validateOrder, Order, Processor, PlacedOrderResult } from './api'
 
 const bookService = (bookId: string) =>
   books[bookId]
@@ -35,12 +35,18 @@ const placeOrderService = (order: Order) =>
       ({
         success: true,
         totalAmount
-      } as PlaceOrderResult)
+      } as PlacedOrderResult)
   )
 
-const processOrder: ProcessOrder = (orderId: string) =>
-  orderService(orderId)
+const processor: Processor = (orderId: string): Promise<PlacedOrderResult> => {
+  return orderService(orderId)
     .then(validationService)
     .then(placeOrderService)
-
-export default processOrder
+    .catch(() => {
+      return {
+        success: false,
+        totalAmount: 0.0
+      }
+    })
+}
+export default processor

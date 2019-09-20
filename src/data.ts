@@ -1,4 +1,5 @@
-import { Book, Order } from './api'
+import { Book, Order, validateOrder } from './api'
+import { BenchmarkIds } from './configuration'
 
 export const books: { [id: string]: Book } = {
   1: {
@@ -42,3 +43,20 @@ export const orders: { [id: string]: Order } = {
     items: [{ bookId: '4', quantity: 3 }]
   }
 }
+
+function categorizeIds(): BenchmarkIds {
+  const ok: string[] = []
+  const ko: string[] = []
+
+  for (let id of Object.keys(orders)) {
+    const r = validateOrder(orders[id])
+    if (r.valid) {
+      ok.push(id)
+    } else {
+      ko.push(id)
+    }
+  }
+  return { ok, ko }
+}
+
+export const categorizedOrderIds: BenchmarkIds = categorizeIds()

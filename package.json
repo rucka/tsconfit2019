@@ -5,7 +5,7 @@
   "scripts": {
     "yarn": "./yarn.sh ",
     "start": "ts-node src/index.ts ",
-    "benchmark": "echo 'name\t\terr_rate\twarmup\t\truns\t\ttime' && ts-node src/index.ts fp && ts-node src/index.ts vanilla",
+    "benchmark": "ts-node src/index.ts vanilla && ts-node src/index.ts fp",
     "watch": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "prettier-fix": "prettier \"{src/**/*, src/*}.{js,ts,tsx,scss}\" --write",
     "prettier-check": "prettier --list-different \"{src/**/*,src/*}.{js,ts,tsx,scss}\""

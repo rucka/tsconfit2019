@@ -4,17 +4,18 @@ export type Book = { name: string; author: string; price: number }
 export type Order = { date: Date; items: OrderLine[] }
 export type OrderLine = { bookId: string; quantity: number }
 
-export type PlaceOrderResult = {
-  success: true
+export type PlacedOrderResult = {
+  success: boolean
   totalAmount: number
 }
-export type ProcessOrder = (orderId: string) => Promise<PlaceOrderResult>
-export type Processor = (orderId: string) => Promise<void>
+export type Processor = (orderId: string) => Promise<PlacedOrderResult>
 
 export type OrderNotValid = 'NoItems' | 'BookNotExists'
-export function validateOrder(
-  order: Order
-): { valid: true } | { valid: false; error: OrderNotValid } {
+export type OrderValidationResult =
+  | { valid: true }
+  | { valid: false; error: OrderNotValid }
+
+export function validateOrder(order: Order): OrderValidationResult {
   const invalid = (error: OrderNotValid) => ({ valid: false, error })
   if (order.items.length === 0) {
     return invalid('NoItems')
