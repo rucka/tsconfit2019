@@ -15,8 +15,9 @@ import {
   validateOrder,
   Order,
   AsyncProcessor,
-  PlacedOrderResult,
-  Book
+  Book,
+  placedOrderFailed,
+  placedOrderSuccess
 } from './api'
 
 const evaluateEither = <T>(ma: Either<Error, T>) => {
@@ -76,13 +77,7 @@ const calculateAmountService = (order: Valid<Order>) =>
 const placeOrderService = (order: Valid<Order>) =>
   pipe(
     calculateAmountService(order),
-    map(
-      totalAmount =>
-        ({
-          success: true,
-          totalAmount
-        } as PlacedOrderResult)
-    )
+    map(placedOrderSuccess)
   )
 
 const processor: AsyncProcessor = (orderId: string) => {
@@ -93,12 +88,7 @@ const processor: AsyncProcessor = (orderId: string) => {
     chain(mapTask(placeOrderService))
   )()
     .then(evaluateEither)
-    .catch(() => {
-      return {
-        success: false,
-        totalAmount: 0.0
-      }
-    })
+    .catch(() => placedOrderFailed)
 }
 
 export default processor

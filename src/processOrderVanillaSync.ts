@@ -1,5 +1,5 @@
 import { orders, books } from './data'
-import { validateOrder, Order, SyncProcessor, PlacedOrderResult } from './api'
+import { validateOrder, Order, SyncProcessor, PlacedOrderResult, placedOrderFailed } from './api'
 
 const bookService = (bookId: string) => (books[bookId] ? books[bookId] : null)
 
@@ -36,17 +36,13 @@ const processor: SyncProcessor = (orderId: string): PlacedOrderResult => {
   const order = orderService(orderId)
   if (order == null) {
     return {
-      success: false,
-      totalAmount: 0.0
+      success: false
     }
   }
 
   const validationResult = validationService(order)
   if (!validationResult.valid) {
-    return {
-      success: false,
-      totalAmount: 0.0
-    }
+    return placedOrderFailed
   }
 
   return placeOrderService(order)

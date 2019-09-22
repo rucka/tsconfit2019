@@ -101,7 +101,8 @@ export function syncRunner(
       id = ids.ok[ok_counter % ids.ok.length]
       ok_counter += 1
     }
-    total += processor(id).totalAmount
+    const r = processor(id)
+    total += r.success ? r.totalAmount : 0
   }
   return {
     ok_counter,
@@ -129,7 +130,8 @@ export async function asyncRunner(
       id = ids.ok[ok_counter % ids.ok.length]
       ok_counter += 1
     }
-    total += (await processor(id)).totalAmount
+    const r = await processor(id)
+    total += r.success ? r.totalAmount : 0
   }
   return {
     ok_counter,

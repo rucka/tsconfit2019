@@ -1,5 +1,12 @@
 import { orders, books } from './data'
-import { validateOrder, Order, AsyncProcessor, PlacedOrderResult } from './api'
+import {
+  validateOrder,
+  Order,
+  AsyncProcessor,
+  PlacedOrderResult,
+  placedOrderFailed,
+  placedOrderSuccess
+} from './api'
 
 const bookService = (bookId: string) =>
   books[bookId]
@@ -30,13 +37,7 @@ const calculateAmountService = async (order: Order) => {
 }
 
 const placeOrderService = (order: Order) =>
-  calculateAmountService(order).then(
-    totalAmount =>
-      ({
-        success: true,
-        totalAmount
-      } as PlacedOrderResult)
-  )
+  calculateAmountService(order).then(placedOrderSuccess)
 
 const processor: AsyncProcessor = (
   orderId: string
@@ -44,12 +45,7 @@ const processor: AsyncProcessor = (
   return orderService(orderId)
     .then(validationService)
     .then(placeOrderService)
-    .catch(() => {
-      return {
-        success: false,
-        totalAmount: 0.0
-      }
-    })
+    .catch(() => placedOrderFailed)
 }
 
 export default processor
