@@ -5,7 +5,7 @@
   "scripts": {
     "yarn": "./yarn.sh ",
     "start": "ts-node src/index.ts ",
-    "benchmark": "for B in syncv vanilla fp; do ts-node src/index.ts $B; done",
+    "benchmark": "for B in syncv vanilla fp checked; do ts-node src/index.ts $B; done",
     "watch": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "prettier-fix": "prettier \"{src/**/*, src/*}.{js,ts,tsx,scss}\" --write",
     "prettier-check": "prettier --list-different \"{src/**/*,src/*}.{js,ts,tsx,scss}\""
