@@ -1,17 +1,4 @@
-name		  err_rate	warmup		  runs		  time
-fp		    0.01	  	1000  		    1000		   19 ms
-vanilla		0.01		  1000	  	    1000	     18 ms
-fp	    	0.01	  	1000	  	   10000		  156 ms
-vanilla		0.01		  1000		     10000		  141 ms
-fp		    0.01	  	1000	  	  100000     1433 ms
-vanilla		0.01		  1000		    100000	   1368 ms
-fp	    	0.01		  1000	  	 1000000	  15885 ms
-vanilla		0.01		  1000  		 1000000	  14024 ms
-fp		    0.01		100000		   1000000		13976 ms
-vanilla		0.01		100000		   1000000		13146 ms
-fp	    	0.01	 1000000		   1000000		13845 ms
-vanilla		0.01	 1000000   	   1000000		15922 ms
-fp	    	0.01  		1000		   2000000	  27887 ms
-vanilla		0.01		  1000		   2000000	  29782 ms
-fp	    	0.01	  	1000		  10000000	 174854 ms
-vanilla  	0.01	  	1000		  10000000  FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory
+syncv	  time ms 77	   iter us 0.154	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+vanilla	time ms 7195	 iter us 14.39	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+fp	    time ms 15934	 iter us 31.868	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+checked	time ms 12311	 iter us 24.622	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
