@@ -1,8 +1,10 @@
 [package]
-name = "rust-demo-code"
+name = "runner"
 version = "0.1.0"
 authors = ["Massimiliano Mantione <massimiliano.mantione@gmail.com>"]
 edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 futures-preview = "=0.3.0-alpha.18"
@@ -12,5 +14,4 @@ futures-util-preview = { version = "=0.3.0-alpha.18", features = ["sink"] }
 chrono = "0.4"
 lazy_static = "1.4.0"
 async-trait = "0.1.11"
-#tokio = "=0.2.0-alpha.4"
 futures-async-combinators = "0.3.1"

@@ -1,5 +1,5 @@
-use crate::runner::api::*;
-use crate::runner::configuration::BenchmarkIds;
+use crate::api::*;
+use crate::configuration::BenchmarkIds;
 use lazy_static::*;
 use std::collections::HashMap;
 use std::str::FromStr;

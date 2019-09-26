@@ -1,8 +1,8 @@
-use crate::runner::api::*;
-use crate::runner::data::BENCHMARK_IDS;
-use crate::runner::process_order_fp::FpProcessor;
-use crate::runner::process_order_vanilla::VanillaProcessor;
-use crate::runner::process_order_vanilla_sync::VanillaProcessorSync;
+use crate::api::*;
+use crate::data::BENCHMARK_IDS;
+use crate::process_order_fp::FpProcessor;
+use crate::process_order_vanilla::VanillaProcessor;
+use crate::process_order_vanilla_sync::VanillaProcessorSync;
 use std::time::{Duration, Instant};
 
 const WARMUP_COUNT: i32 = 200000;

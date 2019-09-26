@@ -1,0 +1,8 @@
+[package]
+name = "rust-demo-code"
+version = "0.1.0"
+authors = ["Massimiliano Mantione <massimiliano.mantione@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+runner = {path="../runner"}
