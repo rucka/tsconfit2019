@@ -1,5 +1,7 @@
 use crate::data::BOOKS;
-use async_trait::async_trait;
+//use async_trait::async_trait;
+use futures::prelude::*;
+use std::pin::Pin;
 use std::str::FromStr;
 
 #[derive(Clone)]
@@ -72,12 +74,12 @@ impl OrderSuccessful {
 pub type PlacedOrderResult = Result<OrderSuccessful, OrderNotValid>;
 
 pub trait SyncProcessor {
-    fn process(&self, order_id: &String) -> f64;
+    fn process(&self, order_id: &String) -> Result<f64, ()>;
 }
 
-#[async_trait]
+pub type ProcessResult = Pin<Box<dyn Future<Output = Result<f64, ()>>>>;
 pub trait AsyncProcessor {
-    async fn process(&self, order_id: &String) -> f64;
+    fn process(&self, order_id: &'static String) -> ProcessResult;
 }
 
 pub fn validate_order(order: &Order) -> ValidationResult {

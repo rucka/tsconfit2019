@@ -15,4 +15,4 @@ futures-util-preview = { version = "=0.3.0-alpha.18", features = ["sink"] }
 chrono = "0.4"
 lazy_static = "1.4.0"
 async-trait = "0.1.11"
-futures-async-combinators = "0.3.1"
+#futures-async-combinators = "0.3.1"

@@ -1,6 +1,5 @@
 use crate::api::*;
 use crate::data::{get_book, get_order};
-use futures::prelude::*;
 
 async fn book_service(id: &String) -> Option<&'static Book> {
     get_book(id)
@@ -40,22 +39,22 @@ async fn place_order_service(order: &Order) -> PlacedOrderResult {
     ))
 }
 
-pub struct FpProcessor {}
+async fn process_async(order_id: &'static String) -> Result<f64, ()> {
+    let order = order_service(order_id).await;
+    let order = validation_service(order).await.map_err(|_| ())?;
+    Ok(place_order_service(order).await.map_err(|_| ())?.amount)
+}
 
-impl AsyncProcessor for FpProcessor {
+pub struct IdiomaticProcessor {}
+
+impl AsyncProcessor for IdiomaticProcessor {
     fn process(&self, order_id: &'static String) -> ProcessResult {
-        Box::pin(
-            order_service(order_id)
-                .then(|order| validation_service(order))
-                .and_then(|validated| place_order_service(validated))
-                .and_then(|result| futures::future::ready(Ok(result.amount)))
-                .map_err(|_| ()),
-        )
+        Box::pin(process_async(order_id))
     }
 }
 
-impl FpProcessor {
+impl IdiomaticProcessor {
     pub fn processor() -> &'static dyn AsyncProcessor {
-        &(FpProcessor {}) as &dyn AsyncProcessor
+        &(IdiomaticProcessor {}) as &dyn AsyncProcessor
     }
 }

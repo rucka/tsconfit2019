@@ -38,20 +38,20 @@ fn place_order_service(order: &Order) -> PlacedOrderResult {
 pub struct VanillaProcessorSync {}
 
 impl SyncProcessor for VanillaProcessorSync {
-    fn process(&self, order_id: &String) -> f64 {
+    fn process(&self, order_id: &String) -> Result<f64, ()> {
         let order = order_service(order_id);
         match order {
             Some(order) => {
                 let validation = validation_service(&order);
                 match validation {
                     Ok(_) => match place_order_service(order) {
-                        Ok(res) => res.amount,
-                        Err(_) => 0.0,
+                        Ok(res) => Ok(res.amount),
+                        Err(_) => Err(()),
                     },
-                    _ => 0.0,
+                    _ => Err(()),
                 }
             }
-            _ => 0.0,
+            _ => Err(()),
         }
     }
 }

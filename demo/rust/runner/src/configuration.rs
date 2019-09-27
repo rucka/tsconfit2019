@@ -1,6 +1,7 @@
 use crate::api::*;
 use crate::data::BENCHMARK_IDS;
 use crate::process_order_fp::FpProcessor;
+use crate::process_order_idiomatic::IdiomaticProcessor;
 use crate::process_order_vanilla::VanillaProcessor;
 use crate::process_order_vanilla_sync::VanillaProcessorSync;
 
@@ -10,20 +11,23 @@ const EPOCH_COUNT: i32 = 10000000;
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum AsyncProcessorKind {
     Vanilla,
+    Idiomatic,
     Fp,
 }
 
 impl AsyncProcessorKind {
-    pub fn processor(&self) -> &dyn AsyncProcessor {
+    pub fn processor(self) -> &'static dyn AsyncProcessor {
         match self {
             AsyncProcessorKind::Vanilla => VanillaProcessor::processor(),
+            AsyncProcessorKind::Idiomatic => IdiomaticProcessor::processor(),
             AsyncProcessorKind::Fp => FpProcessor::processor(),
         }
     }
 
-    pub fn name(&self) -> &'static str {
+    pub fn name(self) -> &'static str {
         match self {
             AsyncProcessorKind::Vanilla => "vanilla",
+            AsyncProcessorKind::Idiomatic => "idiom",
             AsyncProcessorKind::Fp => "fp",
         }
     }
@@ -97,7 +101,7 @@ pub fn sync_runner(
     processor: &dyn SyncProcessor,
     iterations: usize,
     failure_rate: f64,
-    ids: &BenchmarkIds,
+    ids: &'static BenchmarkIds,
 ) -> RunnerResult {
     let mut ok_counter: usize = 0;
     let mut ko_counter: usize = 0;
@@ -113,7 +117,10 @@ pub fn sync_runner(
             ok_counter += 1;
             id
         };
-        total += processor.process(id);
+        match processor.process(id) {
+            Ok(amount) => total += amount,
+            _ => {}
+        };
     }
     RunnerResult {
         total,
@@ -123,10 +130,10 @@ pub fn sync_runner(
 }
 
 pub async fn async_runner(
-    processor: &dyn AsyncProcessor,
+    processor: &'static dyn AsyncProcessor,
     iterations: usize,
     failure_rate: f64,
-    ids: &BenchmarkIds,
+    ids: &'static BenchmarkIds,
 ) -> RunnerResult {
     let mut ok_counter: usize = 0;
     let mut ko_counter: usize = 0;
@@ -142,7 +149,10 @@ pub async fn async_runner(
             ok_counter += 1;
             id
         };
-        total += processor.process(id).await;
+        match processor.process(id).await {
+            Ok(amount) => total += amount,
+            _ => {}
+        };
     }
     RunnerResult {
         total,
