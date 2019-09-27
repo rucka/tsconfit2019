@@ -1,0 +1,1 @@
+Rust benchmark compiled to wasm
