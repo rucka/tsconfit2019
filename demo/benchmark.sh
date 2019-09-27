@@ -1,5 +1,12 @@
 ROOT=`pwd`
 
+cd $ROOT/ts
+echo TypeScript preparation
+./yarn.sh
+echo TypeScript benchmark
+npm run benchmark
+echo TypeScript benchmark done
+
 cd $ROOT/rust/native
 echo Rust native build
 ./build.sh

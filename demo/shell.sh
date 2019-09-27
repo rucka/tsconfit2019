@@ -10,4 +10,5 @@ docker run -t -i --rm \
   -v="$CARGO_REGISTRY:/usr/local/cargo/registry" \
   -v="$RUST_NATIVE_TARGET:/demo/rust/native/target" \
   -v="$RUST_WASM_TARGET:/demo/rust/wasm/target" \
+  -v="$TS_NODE_MODULES:/demo/ts/node_modules" \
   -w /demo tsconfit2019-demo:latest bash
