@@ -21,6 +21,5 @@ pub fn timestamp() -> f64 {
 #[wasm_bindgen]
 pub fn main() {
     utils::set_panic_hook();
-    log("Hello, rust-wasm!");
     runner::run(&|message| log(message), &timestamp);
 }
