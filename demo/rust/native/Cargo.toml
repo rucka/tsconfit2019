@@ -3,6 +3,7 @@ name = "rust-demo-code"
 version = "0.1.0"
 authors = ["Massimiliano Mantione <massimiliano.mantione@gmail.com>"]
 edition = "2018"
+license = "MIT"
 
 [dependencies]
 runner = {path="../runner"}
