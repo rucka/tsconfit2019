@@ -3,7 +3,6 @@ use crate::data::BENCHMARK_IDS;
 use crate::process_order_fp::FpProcessor;
 use crate::process_order_vanilla::VanillaProcessor;
 use crate::process_order_vanilla_sync::VanillaProcessorSync;
-use std::time::{Duration, Instant};
 
 const WARMUP_COUNT: i32 = 200000;
 const EPOCH_COUNT: i32 = 10000000;
@@ -152,7 +151,7 @@ pub async fn async_runner(
     }
 }
 
-pub async fn benchmark(kind: ProcessorKind) -> (Duration, RunnerResult) {
+pub async fn benchmark(kind: ProcessorKind, timestamp: &impl Fn() -> f64) -> (f64, RunnerResult) {
     let config = get_configuration(kind);
 
     match config.kind {
@@ -173,7 +172,7 @@ pub async fn benchmark(kind: ProcessorKind) -> (Duration, RunnerResult) {
         }
     };
 
-    let start = Instant::now();
+    let start = timestamp();
     let runner_result = match config.kind {
         ProcessorKind::SyncKind(kind) => sync_runner(
             kind.processor(),
@@ -191,5 +190,6 @@ pub async fn benchmark(kind: ProcessorKind) -> (Duration, RunnerResult) {
             .await
         }
     };
-    (start.elapsed(), runner_result)
+    let elapsed = timestamp() - start;
+    (elapsed, runner_result)
 }
