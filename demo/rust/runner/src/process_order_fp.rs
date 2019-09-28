@@ -59,3 +59,11 @@ impl FpProcessor {
         &(FpProcessor {}) as &dyn AsyncProcessor
     }
 }
+
+pub fn process_fp_direct(order_id: &'static String) -> impl Future<Output = Result<f64, ()>> {
+    order_service(order_id)
+        .then(|order| validation_service(order))
+        .and_then(|validated| place_order_service(validated))
+        .and_then(|result| futures::future::ready(Ok(result.amount)))
+        .map_err(|_| ())
+}

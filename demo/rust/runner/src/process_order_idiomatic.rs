@@ -39,17 +39,17 @@ async fn place_order_service(order: &Order) -> PlacedOrderResult {
     ))
 }
 
-async fn process_async(order_id: &'static String) -> Result<f64, ()> {
+pub async fn process_idiomatic_direct(order_id: &'static String) -> Result<f64, ()> {
     let order = order_service(order_id).await;
-    let order = validation_service(order).await.map_err(|_| ())?;
-    Ok(place_order_service(order).await.map_err(|_| ())?.amount)
+    let validated = validation_service(order).await.map_err(|_| ())?;
+    Ok(place_order_service(validated).await.map_err(|_| ())?.amount)
 }
 
 pub struct IdiomaticProcessor {}
 
 impl AsyncProcessor for IdiomaticProcessor {
     fn process(&self, order_id: &'static String) -> ProcessResult {
-        Box::pin(process_async(order_id))
+        Box::pin(process_idiomatic_direct(order_id))
     }
 }
 

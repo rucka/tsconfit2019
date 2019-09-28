@@ -35,13 +35,12 @@ async fn place_order_service(order: &Order) -> PlacedOrderResult {
     Ok(OrderSuccessful::new(result.0))
 }
 
-async fn process(order_id: &String) -> Result<f64, ()> {
-    let order = order_service(order_id).await;
-    match order {
+pub async fn process_vanilla_direct(order_id: &String) -> Result<f64, ()> {
+    match order_service(order_id).await {
         Some(order) => {
             let validation = validation_service(&order).await;
             match validation {
-                Ok(_) => match place_order_service(order).await {
+                Ok(order) => match place_order_service(order).await {
                     Ok(res) => Ok(res.amount),
                     Err(_) => Err(()),
                 },
@@ -56,7 +55,7 @@ pub struct VanillaProcessor {}
 
 impl AsyncProcessor for VanillaProcessor {
     fn process(&self, order_id: &'static String) -> ProcessResult {
-        Box::pin(process(order_id))
+        Box::pin(process_vanilla_direct(order_id))
     }
 }
 

@@ -39,12 +39,11 @@ pub struct VanillaProcessorSync {}
 
 impl SyncProcessor for VanillaProcessorSync {
     fn process(&self, order_id: &String) -> Result<f64, ()> {
-        let order = order_service(order_id);
-        match order {
+        match order_service(order_id) {
             Some(order) => {
                 let validation = validation_service(&order);
                 match validation {
-                    Ok(_) => match place_order_service(order) {
+                    Ok(order) => match place_order_service(order) {
                         Ok(res) => Ok(res.amount),
                         Err(_) => Err(()),
                     },
@@ -59,5 +58,21 @@ impl SyncProcessor for VanillaProcessorSync {
 impl VanillaProcessorSync {
     pub fn processor() -> &'static dyn SyncProcessor {
         &(VanillaProcessorSync {}) as &dyn SyncProcessor
+    }
+}
+
+pub fn process_syncv_direct(order_id: &String) -> Result<f64, ()> {
+    match order_service(order_id) {
+        Some(order) => {
+            let validation = validation_service(&order);
+            match validation {
+                Ok(order) => match place_order_service(order) {
+                    Ok(res) => Ok(res.amount),
+                    Err(_) => Err(()),
+                },
+                _ => Err(()),
+            }
+        }
+        _ => Err(()),
     }
 }

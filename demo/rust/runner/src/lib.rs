@@ -1,6 +1,6 @@
 #![feature(async_closure)]
 use configuration::{
-    benchmark, AsyncProcessorKind, ProcessorKind, RunnerResult, SyncProcessorKind,
+    benchmark, benchmark_direct, AsyncProcessorKind, ProcessorKind, RunnerResult, SyncProcessorKind,
 };
 use futures::executor::LocalPool;
 
@@ -14,6 +14,7 @@ mod process_order_vanilla_sync;
 
 fn report(
     kind: ProcessorKind,
+    direct: bool,
     time_as_ms: f64,
     runner_result: RunnerResult,
     print: &impl Fn(&str) -> (),
@@ -21,7 +22,8 @@ fn report(
     let iterations = runner_result.ok_counter + runner_result.ko_counter;
     let iter_as_us = (1000.0 * time_as_ms) / (iterations as f64);
     print(&format!(
-        "{}\ttime ms {}\t iter us {}\titer {}\t(ok {} ko {})\ttotal {}",
+        "{}\t{}\ttime ms {}\t iter us {}\titer {}\t(ok {} ko {})\ttotal {}",
+        if direct { "dir" } else { "dyn" },
         kind.name(),
         time_as_ms,
         iter_as_us,
@@ -34,7 +36,9 @@ fn report(
 
 async fn run_benchmerk(kind: ProcessorKind, print: &impl Fn(&str), timestamp: &impl Fn() -> f64) {
     let (time_as_millis, result) = benchmark(kind, timestamp).await;
-    report(kind, time_as_millis, result, print);
+    report(kind, false, time_as_millis, result, print);
+    let (time_as_millis, result) = benchmark_direct(kind, timestamp).await;
+    report(kind, true, time_as_millis, result, print);
 }
 
 async fn main_async(print: &impl Fn(&str), timestamp: &impl Fn() -> f64) -> () {
