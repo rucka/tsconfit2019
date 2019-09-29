@@ -11,4 +11,5 @@ We’ll consider the following costs:
 - cognitive overhead (how hard it is to understand the abstraction)
 
 The piece of code we’ll use is small enough to be understood by the audience in a minute, but it is realistic and could be used in production both in a front end and in a back end.
+
 As abstractions we’ll gradually introduce types and functional constructs. Then we’ll also show a Rust implementation using the same abstractions (this is significant because the language claims to support “zero cost abstractions”), running both as native code and as a WASM module, and compare it to the Typescript one. Finally we’ll also investigate how AssemblyScript influences the costs.
