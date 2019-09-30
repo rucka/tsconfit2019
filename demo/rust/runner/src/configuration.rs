@@ -3,8 +3,8 @@ use crate::data::BENCHMARK_IDS;
 use crate::process_order_fp::{process_fp_direct, FpProcessor};
 use crate::process_order_future::{process_future_direct, FutureProcessor};
 use crate::process_order_idiomatic::{process_idiomatic_direct, IdiomaticProcessor};
-use crate::process_order_vanilla::{process_vanilla_direct, VanillaProcessor};
-use crate::process_order_vanilla_sync::{process_syncv_direct, VanillaProcessorSync};
+use crate::process_order_imperative::{process_imperative_direct, ImperativeProcessor};
+use crate::process_order_imperative_sync::{process_sync_direct, ImperativeProcessorSync};
 use std::future::Future;
 
 const WARMUP_COUNT: i32 = 200000;
@@ -12,7 +12,7 @@ const EPOCH_COUNT: i32 = 10000000;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum AsyncProcessorKind {
-    Vanilla,
+    Imperative,
     Idiomatic,
     Future,
     Fp,
@@ -21,7 +21,7 @@ pub enum AsyncProcessorKind {
 impl AsyncProcessorKind {
     pub fn processor(self) -> &'static dyn AsyncProcessor {
         match self {
-            AsyncProcessorKind::Vanilla => VanillaProcessor::processor(),
+            AsyncProcessorKind::Imperative => ImperativeProcessor::processor(),
             AsyncProcessorKind::Idiomatic => IdiomaticProcessor::processor(),
             AsyncProcessorKind::Future => FutureProcessor::processor(),
             AsyncProcessorKind::Fp => FpProcessor::processor(),
@@ -30,7 +30,7 @@ impl AsyncProcessorKind {
 
     pub fn name(self) -> &'static str {
         match self {
-            AsyncProcessorKind::Vanilla => "vanilla",
+            AsyncProcessorKind::Imperative => "imper",
             AsyncProcessorKind::Idiomatic => "idiom",
             AsyncProcessorKind::Future => "future",
             AsyncProcessorKind::Fp => "fp",
@@ -40,14 +40,14 @@ impl AsyncProcessorKind {
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum SyncProcessorKind {
-    Vanilla,
+    Imperative,
     //Fp,
 }
 
 impl SyncProcessorKind {
     pub fn processor(&self) -> &dyn SyncProcessor {
         match self {
-            SyncProcessorKind::Vanilla => VanillaProcessorSync::processor(),
+            SyncProcessorKind::Imperative => ImperativeProcessorSync::processor(),
             // SyncProcessorKind::Fp => VanillaProcessor::processor(),
         }
     }
@@ -59,15 +59,15 @@ impl SyncProcessorKind {
         ids: &'static BenchmarkIds,
     ) -> RunnerResult {
         match self {
-            SyncProcessorKind::Vanilla => {
-                sync_runner_direct(&process_syncv_direct, iterations, failure_rate, ids)
+            SyncProcessorKind::Imperative => {
+                sync_runner_direct(&process_sync_direct, iterations, failure_rate, ids)
             } // SyncProcessorKind::Fp => sync_runner_direct(xxx, iterations, failure_rate, ids),
         }
     }
 
     pub fn name(&self) -> &'static str {
         match self {
-            SyncProcessorKind::Vanilla => "syncv",
+            SyncProcessorKind::Imperative => "sync",
             // SyncProcessorKind::Fp => "syncfp",
         }
     }
@@ -319,9 +319,9 @@ pub async fn benchmark_direct(
             kind.run_direct(config.epoch as usize, config.failure_rate, &BENCHMARK_IDS)
         }
         ProcessorKind::AsyncKind(kind) => match kind {
-            AsyncProcessorKind::Vanilla => {
+            AsyncProcessorKind::Imperative => {
                 async_runner_direct(
-                    &process_vanilla_direct,
+                    &process_imperative_direct,
                     config.epoch as usize,
                     config.failure_rate,
                     &BENCHMARK_IDS,

@@ -32,7 +32,7 @@ async fn place_order_service(order: &Order) -> PlacedOrderResult {
     Ok(OrderSuccessful::new(result.0))
 }
 
-pub async fn process_vanilla_direct(order_id: &String) -> Result<f64, ()> {
+pub async fn process_imperative_direct(order_id: &String) -> Result<f64, ()> {
     match order_service(order_id).await {
         Some(order) => {
             let validation = validation_service(&order).await;
@@ -48,16 +48,16 @@ pub async fn process_vanilla_direct(order_id: &String) -> Result<f64, ()> {
     }
 }
 
-pub struct VanillaProcessor {}
+pub struct ImperativeProcessor {}
 
-impl AsyncProcessor for VanillaProcessor {
+impl AsyncProcessor for ImperativeProcessor {
     fn process(&self, order_id: &'static String) -> ProcessResult {
-        Box::pin(process_vanilla_direct(order_id))
+        Box::pin(process_imperative_direct(order_id))
     }
 }
 
-impl VanillaProcessor {
+impl ImperativeProcessor {
     pub fn processor() -> &'static dyn AsyncProcessor {
-        &(VanillaProcessor {}) as &dyn AsyncProcessor
+        &(ImperativeProcessor {}) as &dyn AsyncProcessor
     }
 }

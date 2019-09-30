@@ -32,9 +32,9 @@ fn place_order_service(order: &Order) -> PlacedOrderResult {
     Ok(OrderSuccessful::new(amount))
 }
 
-pub struct VanillaProcessorSync {}
+pub struct ImperativeProcessorSync {}
 
-impl SyncProcessor for VanillaProcessorSync {
+impl SyncProcessor for ImperativeProcessorSync {
     fn process(&self, order_id: &String) -> Result<f64, ()> {
         match order_service(order_id) {
             Some(order) => {
@@ -52,13 +52,13 @@ impl SyncProcessor for VanillaProcessorSync {
     }
 }
 
-impl VanillaProcessorSync {
+impl ImperativeProcessorSync {
     pub fn processor() -> &'static dyn SyncProcessor {
-        &(VanillaProcessorSync {}) as &dyn SyncProcessor
+        &(ImperativeProcessorSync {}) as &dyn SyncProcessor
     }
 }
 
-pub fn process_syncv_direct(order_id: &String) -> Result<f64, ()> {
+pub fn process_sync_direct(order_id: &String) -> Result<f64, ()> {
     match order_service(order_id) {
         Some(order) => {
             let validation = validation_service(&order);
