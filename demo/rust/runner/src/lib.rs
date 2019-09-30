@@ -8,6 +8,7 @@ mod api;
 mod configuration;
 mod data;
 mod process_order_fp;
+mod process_order_future;
 mod process_order_idiomatic;
 mod process_order_vanilla;
 mod process_order_vanilla_sync;
@@ -46,6 +47,7 @@ async fn main_async(print: &impl Fn(&str), timestamp: &impl Fn() -> f64) -> () {
         ProcessorKind::SyncKind(SyncProcessorKind::Vanilla),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Vanilla),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Idiomatic),
+        ProcessorKind::AsyncKind(AsyncProcessorKind::Future),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Fp),
     ] {
         run_benchmerk(*k, print, timestamp).await;

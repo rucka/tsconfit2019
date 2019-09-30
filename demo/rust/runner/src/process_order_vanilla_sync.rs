@@ -9,11 +9,8 @@ fn order_service(id: &String) -> Option<&'static Order> {
     get_order(id)
 }
 
-fn validation_service(order: &Order) -> Result<&Order, OrderNotValid> {
-    match validate_order(order) {
-        Ok(_) => Ok(order),
-        Err(err) => Err(err),
-    }
+fn validation_service(order: &Order) -> ValidationResult {
+    validate_order(order)
 }
 
 fn calculate_amount_service(order: &Order) -> f64 {

@@ -1,6 +1,7 @@
 use crate::api::*;
 use crate::data::BENCHMARK_IDS;
 use crate::process_order_fp::{process_fp_direct, FpProcessor};
+use crate::process_order_future::{process_future_direct, FutureProcessor};
 use crate::process_order_idiomatic::{process_idiomatic_direct, IdiomaticProcessor};
 use crate::process_order_vanilla::{process_vanilla_direct, VanillaProcessor};
 use crate::process_order_vanilla_sync::{process_syncv_direct, VanillaProcessorSync};
@@ -13,6 +14,7 @@ const EPOCH_COUNT: i32 = 10000000;
 pub enum AsyncProcessorKind {
     Vanilla,
     Idiomatic,
+    Future,
     Fp,
 }
 
@@ -21,6 +23,7 @@ impl AsyncProcessorKind {
         match self {
             AsyncProcessorKind::Vanilla => VanillaProcessor::processor(),
             AsyncProcessorKind::Idiomatic => IdiomaticProcessor::processor(),
+            AsyncProcessorKind::Future => FutureProcessor::processor(),
             AsyncProcessorKind::Fp => FpProcessor::processor(),
         }
     }
@@ -29,6 +32,7 @@ impl AsyncProcessorKind {
         match self {
             AsyncProcessorKind::Vanilla => "vanilla",
             AsyncProcessorKind::Idiomatic => "idiom",
+            AsyncProcessorKind::Future => "future",
             AsyncProcessorKind::Fp => "fp",
         }
     }
@@ -327,6 +331,15 @@ pub async fn benchmark_direct(
             AsyncProcessorKind::Idiomatic => {
                 async_runner_direct(
                     &process_idiomatic_direct,
+                    config.epoch as usize,
+                    config.failure_rate,
+                    &BENCHMARK_IDS,
+                )
+                .await
+            }
+            AsyncProcessorKind::Future => {
+                async_runner_direct(
+                    &process_future_direct,
                     config.epoch as usize,
                     config.failure_rate,
                     &BENCHMARK_IDS,

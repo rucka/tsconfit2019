@@ -59,7 +59,7 @@ pub enum OrderNotValid {
     BookNotExists,
 }
 
-pub type ValidationResult = Result<(), OrderNotValid>;
+pub type ValidationResult<'a> = Result<&'a Order, OrderNotValid>;
 
 #[derive(Clone, Copy)]
 pub struct OrderSuccessful {
@@ -91,5 +91,5 @@ pub fn validate_order(order: &Order) -> ValidationResult {
             return Err(OrderNotValid::BookNotExists);
         }
     }
-    Ok(())
+    Ok(order)
 }

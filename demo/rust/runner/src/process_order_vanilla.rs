@@ -10,10 +10,7 @@ async fn order_service(id: &String) -> Option<&'static Order> {
 }
 
 async fn validation_service(order: &Order) -> Result<&Order, OrderNotValid> {
-    match validate_order(order) {
-        Ok(_) => Ok(order),
-        Err(err) => Err(err),
-    }
+    validate_order(order)
 }
 
 async fn calculate_amount_service(order: &Order) -> (f64, &Order) {

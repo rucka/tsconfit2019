@@ -1,5 +1,6 @@
 use crate::api::*;
 use crate::data::{get_book, get_order};
+use futures::prelude::*;
 
 async fn book_service(id: &String) -> Option<&'static Book> {
     get_book(id)
@@ -9,7 +10,7 @@ async fn order_service(id: &String) -> Option<&'static Order> {
     get_order(id)
 }
 
-async fn validation_service(order: Option<&Order>) -> Result<&Order, OrderNotValid> {
+async fn validation_service<'a>(order: Option<&'a Order>) -> ValidationResult<'a> {
     match order {
         Some(o) => validate_order(o),
         None => Err(OrderNotValid::BookNotExists),
@@ -36,22 +37,30 @@ async fn place_order_service(order: &Order) -> PlacedOrderResult {
     ))
 }
 
-pub async fn process_idiomatic_direct(order_id: &'static String) -> Result<f64, ()> {
-    let order = order_service(order_id).await;
-    let validated = validation_service(order).await.map_err(|_| ())?;
-    Ok(place_order_service(validated).await.map_err(|_| ())?.amount)
-}
+pub struct FutureProcessor {}
 
-pub struct IdiomaticProcessor {}
-
-impl AsyncProcessor for IdiomaticProcessor {
+impl AsyncProcessor for FutureProcessor {
     fn process(&self, order_id: &'static String) -> ProcessResult {
-        Box::pin(process_idiomatic_direct(order_id))
+        Box::pin(
+            order_service(order_id)
+                .then(validation_service)
+                .and_then(place_order_service)
+                .and_then(|result| futures::future::ready(Ok(result.amount)))
+                .map_err(|_| ()),
+        )
     }
 }
 
-impl IdiomaticProcessor {
+impl FutureProcessor {
     pub fn processor() -> &'static dyn AsyncProcessor {
-        &(IdiomaticProcessor {}) as &dyn AsyncProcessor
+        &(FutureProcessor {}) as &dyn AsyncProcessor
     }
+}
+
+pub fn process_future_direct(order_id: &'static String) -> impl Future<Output = Result<f64, ()>> {
+    order_service(order_id)
+        .then(validation_service)
+        .and_then(place_order_service)
+        .and_then(|result| futures::future::ready(Ok(result.amount)))
+        .map_err(|_| ())
 }
