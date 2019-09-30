@@ -1,5 +1,5 @@
-import processorVanilla from './processOrderVanilla'
-import processorVanillaSync from './processOrderVanillaSync'
+import processorPromise from './processOrderPromise'
+import processorSync from './processOrderSync'
 import processorAsync from './processOrderAsync'
 import processorCb from './processOrderCb'
 import processorCbAsync from './processOrderCbAsync'
@@ -17,7 +17,7 @@ const config = JSON.parse(readFileSync(__dirname + '/params.json', 'utf8')) as {
 }
 
 function getAsyncProcessor(processorName: string): AsyncProcessor | null {
-  if (processorName === 'vanilla') return processorVanilla
+  if (processorName === 'promise') return processorPromise
   if (processorName === 'async') return processorAsync
   if (processorName === 'cb') return processorCb
   if (processorName === 'cbasync') return processorCbAsync
@@ -26,7 +26,7 @@ function getAsyncProcessor(processorName: string): AsyncProcessor | null {
   return null
 }
 function getSyncProcessor(processorName: string): SyncProcessor | null {
-  if (processorName === 'syncv') return processorVanillaSync
+  if (processorName === 'sync') return processorSync
   if (processorName === 'syncfp') return processorFpSync
   return null
 }
