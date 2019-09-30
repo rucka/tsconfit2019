@@ -4,6 +4,7 @@ import processorAsync from './processOrderAsync'
 import processorCb from './processOrderCb'
 import processorCbAsync from './processOrderCbAsync'
 import processorFp from './processOrderFp'
+import processorFpSync from './processOrderFpSync'
 import processorFpChecked from './processOrderFpChecked'
 import { categorizedOrderIds } from './data'
 import { SyncProcessor, AsyncProcessor } from './api'
@@ -26,7 +27,7 @@ function getAsyncProcessor(processorName: string): AsyncProcessor | null {
 }
 function getSyncProcessor(processorName: string): SyncProcessor | null {
   if (processorName === 'syncv') return processorVanillaSync
-  //if (processorName === 'syncfp') return porcessorFp
+  if (processorName === 'syncfp') return processorFpSync
   return null
 }
 
