@@ -1,6 +1,8 @@
 import processorVanilla from './processOrderVanilla'
 import processorVanillaSync from './processOrderVanillaSync'
 import processorAsync from './processOrderAsync'
+import processorCb from './processOrderCb'
+import processorCbAsync from './processOrderCbAsync'
 import processorFp from './processOrderFp'
 import processorFpChecked from './processOrderFpChecked'
 import { categorizedOrderIds } from './data'
@@ -16,6 +18,8 @@ const config = JSON.parse(readFileSync(__dirname + '/params.json', 'utf8')) as {
 function getAsyncProcessor(processorName: string): AsyncProcessor | null {
   if (processorName === 'vanilla') return processorVanilla
   if (processorName === 'async') return processorAsync
+  if (processorName === 'cb') return processorCb
+  if (processorName === 'cbasync') return processorCbAsync
   if (processorName === 'fp') return processorFp
   if (processorName === 'checked') return processorFpChecked
   return null
