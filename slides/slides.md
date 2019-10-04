@@ -167,7 +167,7 @@ const processor: AsyncProcessor = async (
 
 ---
 
-[slide with qr code where download slides&code]
+![original](assets/qrcode.jpg)
 
 ---
 
@@ -260,7 +260,7 @@ functional typescript 12s
 ---
 
 #RESULTS
-**async target es3 typescript 20s**
+**async typescript(_target es3_) 20s**
 functional typescript 12s
 
 ![](assets/result.jpg)
@@ -268,8 +268,8 @@ functional typescript 12s
 ---
 
 #RESULTS
-async target es3 typescript 20s
-**async target es6 typescript 5s**
+async typescript(_target es3_) 20s
+**async typescript(_target es6_) 5s**
 functional typescript 12s
 
 ![](assets/result.jpg)
@@ -362,8 +362,8 @@ function placeOrderService (order: Valid<Order>) {
 ---
 
 #RESULTS
-async target es3 typescript 20s
-async target es6 typescript 5s
+async typescript(_target es3_) 20s
+async typescript(_target es6_) 5s
 functional typescript 12s
 
 ![](assets/result.jpg)
@@ -371,8 +371,8 @@ functional typescript 12s
 ---
 
 #RESULTS
-async target es3 typescript 20s
-async target es6 typescript 5s
+async typescript(_target es3_) 20s
+async typescript(_target es6_) 5s
 functional typescript 12s
 **checked functional typescript 12.1s**
 
@@ -422,8 +422,8 @@ performance and maintenability
 ---
 
 #RESULT
-async target es3 typescript 20s
-async target es6 typescript 5s
+async typescript(_target es3_) 20s
+async typescript(_target es6_) 5s
 functional typescript 12s
 checked functional typescript 12.1s
 
@@ -433,8 +433,8 @@ checked functional typescript 12.1s
 ---
 
 #RESULT
-async target es3 typescript 20s
-async target es6 typescript 5s
+async typescript(_target es3_) 20s
+async typescript(_target es6_) 5s
 functional typescript 12s
 checked functional typescript 12.1s
 **rust native [x]s**
@@ -453,13 +453,13 @@ what about the web? are we forced to pay for abstraction?
 ---
 
 #next step
-#### **move** to WebAssembly using the same code 
+#### same code from native **to WebAssembly** 
 ![](assets/step.jpg)
 
 ---
 #RESULT
-async target es3 typescript 20s
-async target es6 typescript 5s
+async typescript(_target es3_) 20s
+async typescript(_target es6_) 5s
 functional typescript 12s
 checked functional typescript 12.1s
 rust native [x]s
@@ -469,8 +469,8 @@ rust native [x]s
 ---
 
 #RESULT
-async target es3 typescript 20s
-async target es6 typescript 5s
+async typescript(_target es3_) 20s
+async typescript(_target es6_) 5s
 functional typescript 12s
 checked functional typescript 12.1s
 rust native [x]s
@@ -480,40 +480,116 @@ rust native [x]s
 
 ---
 
-[vogliamo software migliore]
+![](assets/summary.jpg)
 
 ---
 
-[ma cosa significa migliore?]
+- **we're focused on better software**
+
+![](assets/summary.jpg)
 
 ---
 
-[profit = revenue * time_to_market - cost
-time to market: [0...1]
+- we're focused on better software
+- **but what "better" software means?**
 
-migliore profit massimo]
-
----
-
-[come lo massimiziamo?]
-
+![](assets/summary.jpg)
 
 ---
 
-[performance vs mantenibilità]
+$$profit(t) = (revenue(t)*time2market)-cost(t), 
+\quad\quad \text{[$0>=time2market<=1$]}$$
+
+![](assets/summary.jpg)
 
 ---
 
-[possiamo ottenere entrambe?]
+- we're focused on better software
+- but what "better" software means?
+- **$$"better" = max(profit(t))$$**
+
+![](assets/summary.jpg)
 
 ---
 
-[no perchè ogni astrazione incide positivamente o sulle performance o sulla mantenibilità, non su entrambe]
+- we're focused on better software
+- but what "better" software means?
+- $$"better" = max(profit(t))$$
+- **how do that?**
+
+![](assets/summary.jpg)
 
 ---
 
-#one more thing
-[come incide l'overhead cognitivo?[
+performance 
+_vs_
+maintainability
+
+![](assets/streetfighter.jpg)
 
 ---
 
+#design abstraction
+- :-1: performance 
+- :+1: maintainability
+
+![](assets/summary.jpg)
+
+---
+
+#code optimisation abstraction
+- :+1: performance 
+- :-1: maintainability
+
+![](assets/summary.jpg)
+
+---
+
+#but...
+
+![fit](assets/homer_doubt.png)
+
+---
+
+###can we reach **both** performance and maintainability?
+
+![fit](assets/homer_doubt.png)
+
+---
+
+###**rust** is the answer!
+####zero ~~cost~~ overhead abstraction
+![fit](assets/homer_yeah.png)
+
+---
+
+#but...
+
+![fit](assets/homer_doubt.png)
+
+---
+
+###what about **cognitive overhead**?
+
+![fit](assets/homer_doh.png)
+
+---
+#summary
+- each decision **hides** a cost
+- there are **no** zero cost abstraction
+- choose abstraction depending on the **context**
+
+![](assets/summary.jpg)
+
+---
+
+![](assets/thank.jpg)
+
+---
+
+##questions?
+![](assets/question.jpg)
+
+---
+
+![original](assets/qrcode.jpg)
