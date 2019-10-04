@@ -1,0 +1,36 @@
+sync	time ms 94	 iter us 0.188	heap    50000	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+syncfp	time ms 423	 iter us 0.846	heap    93128	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+promise	time ms 866	 iter us 1.732	heap  4098616	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+async	time ms 1047	 iter us 2.094	heap    74064	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+cb	time ms 318	 iter us 0.636	heap   113624	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+cbasync	time ms 958	 iter us 1.916	heap    97584	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+fp	time ms 2879	 iter us 5.758	heap   122864	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+checked	time ms 2701	 iter us 5.402	heap   131928	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+
+sync	time ms 109	 iter us 0.218	heap    51944	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+syncfp	time ms 354	 iter us 0.708	heap    92472	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+promise	time ms 930	 iter us 1.86	heap  4090776	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+async	time ms 1051	 iter us 2.102	heap    74064	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+cb	time ms 368	 iter us 0.736	heap    94472	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+cbasync	time ms 899	 iter us 1.798	heap    99472	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+fp	time ms 2929	 iter us 5.858	heap   158248	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+checked	time ms 2927	 iter us 5.854	heap   121656	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+
+sync	time ms 97	 iter us 0.194	heap    50112	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+syncfp	time ms 360	 iter us 0.72	heap    94112	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+promise	time ms 881	 iter us 1.762	heap  4090776	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+async	time ms 1069	 iter us 2.138	heap    79984	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+cb	time ms 346	 iter us 0.692	heap   109744	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+cbasync	time ms 950	 iter us 1.9	heap   102672	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+fp	time ms 2818	 iter us 5.636	heap   162888	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+checked	time ms 2753	 iter us 5.506	heap   116784	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+
+sync	time ms 109	 iter us 0.218	heap    50024	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+syncfp	time ms 386	 iter us 0.772	heap    97856	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+promise	time ms 915	 iter us 1.83	heap  4099064	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+async	time ms 1002	 iter us 2.004	heap    82088	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+cb	time ms 343	 iter us 0.686	heap   111640	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+cbasync	time ms 878	 iter us 1.756	heap   107504	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+fp	time ms 2939	 iter us 5.878	heap   121952	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+checked	time ms 2940	 iter us 5.88	heap   136936	warmup 	200000	iter 500000	(ok 495049 ko 4951)	total 224227690.1299196
+
