@@ -1,26 +1,52 @@
 use crate::api::*;
 use crate::data::{get_book, get_order};
-use fp_core::compose;
-use fp_core::compose::compose_two;
 use futures::future::*;
 use futures::prelude::*;
-use std::future::Future;
 
-fn book_service(id: &String) -> impl Future<Output = Option<&'static Book>> {
-    ready(get_book(id))
+/*
+macro_rules! compose_future_result_tail {
+    ( $last:expr ) => { and_then($last) };
+    ( $head:expr, $($tail:expr), +) => {
+        and_then($head) . compose_future_result_tail!($($tail),+)
+    };
 }
 
-fn order_service(id: &String) -> impl Future<Output = Option<&'static Order>> {
-    ready(get_order(id))
+macro_rules! compose_future_result {
+    ( $unique:expr ) => { $unique };
+    ( $head:expr, $($tail:expr), +) => {
+        $head . compose_future_result_tail!($($tail),+)
+    };
+}
+*/
+
+/*
+fn compose_two<A, B, C, G, F>(f: F, g: G) -> impl Fn(A) -> C
+where
+    F: Fn(A) -> B,
+    G: Fn(B) -> C,
+{
+    move |x| g(f(x))
+}
+*/
+
+fn book_service(id: &String) -> impl Future<Output = Result<&'static Book, OrderNotValid>> {
+    ready(match get_book(id) {
+        Some(b) => Ok(b),
+        None => Err(OrderNotValid::BookNotExists),
+    })
+}
+
+fn order_service(id: &String) -> impl Future<Output = Result<&'static Order, OrderNotValid>> {
+    ready(match get_order(id) {
+        Some(b) => Ok(b),
+        None => Err(OrderNotValid::BookNotExists),
+    })
 }
 
 fn validation_service(
-    order: impl Future<Output = Option<&'static Order>>,
+    order: &'static Order,
 ) -> impl Future<Output = Result<&'static Order, OrderNotValid>> {
-    order.map(|order| match order {
-        Some(o) => validate_order(o),
-        None => Err(OrderNotValid::BookNotExists),
-    })
+    ready(validate_order(order))
 }
 
 fn calculate_amount_service(
@@ -31,7 +57,7 @@ fn calculate_amount_service(
         for item in &order.items {
             let book = book_service(&item.book_id).await;
             match book {
-                Some(b) => {
+                Ok(b) => {
                     total += item.quantity as f64 * b.price;
                 }
                 _ => {}
@@ -41,28 +67,21 @@ fn calculate_amount_service(
     }
 }
 
-fn place_order_service(
-    order: impl Future<Output = Result<&'static Order, OrderNotValid>>,
-) -> impl Future<Output = Result<f64, OrderNotValid>> {
-    order.and_then(calculate_amount_service)
-}
-
-fn map_order_amount(
-    order_result: impl Future<Output = Result<f64, OrderNotValid>>,
-) -> impl Future<Output = Result<f64, ()>> {
-    order_result.map_err(|_| ())
+fn place_order_service(order: &'static Order) -> impl Future<Output = Result<f64, OrderNotValid>> {
+    calculate_amount_service(order)
 }
 
 pub struct FpProcessor {}
 
 impl AsyncProcessor for FpProcessor {
     fn process(&self, order_id: &'static String) -> ProcessResult {
-        Box::pin(compose!(
-            order_service,
-            validation_service,
-            place_order_service,
-            map_order_amount
-        )(order_id))
+        Box::pin(
+            order_service(order_id)
+                .and_then(validation_service)
+                .and_then(place_order_service)
+                .map_err(|_| ())
+                .map_err(|_| ()),
+        )
     }
 }
 
@@ -73,10 +92,16 @@ impl FpProcessor {
 }
 
 pub fn process_fp_direct(order_id: &'static String) -> impl Future<Output = Result<f64, ()>> {
-    compose!(
-        order_service,
-        validation_service,
-        place_order_service,
-        map_order_amount
-    )(order_id)
+    /*
+    compose_future_result!(
+        order_service(order_id),
+        &validation_service,
+        &place_order_service,
+        &map_order_amount
+    )
+    */
+    order_service(order_id)
+        .and_then(validation_service)
+        .and_then(place_order_service)
+        .map_err(|_| ())
 }

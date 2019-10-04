@@ -7,6 +7,7 @@ use futures::executor::LocalPool;
 mod api;
 mod configuration;
 mod data;
+mod process_order_compose;
 mod process_order_fp;
 mod process_order_future;
 mod process_order_idiomatic;
@@ -48,6 +49,7 @@ async fn main_async(print: &impl Fn(&str), timestamp: &impl Fn() -> f64) -> () {
         ProcessorKind::AsyncKind(AsyncProcessorKind::Imperative),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Idiomatic),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Future),
+        ProcessorKind::AsyncKind(AsyncProcessorKind::Compose),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Fp),
     ] {
         run_benchmerk(*k, print, timestamp).await;
