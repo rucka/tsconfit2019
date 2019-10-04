@@ -4,8 +4,8 @@
 #### Gianluca Carucci
 
 ---
-
-###once upon a time...
+<br>
+#once upon a time...
 
 ![](assets/partenza.jpg)
 
@@ -15,7 +15,8 @@ Often I tell to Massi about my journey in functional programming structure like 
 
 ---
 
-###What is the Cost of Abstractions? 
+<br>
+#What is the Cost of Abstractions? 
  
 ![](assets/lecco.jpg)
 
@@ -24,8 +25,6 @@ The strange thing is all trip ends in the same way, with Massi that ask me "Cool
 My answer is always the same....
 
 ---
-
-###ehm....
 ![150%](assets/ehm.png)
 
 ^
@@ -40,20 +39,27 @@ ehm... I dont know, but it's the perfect moment to have a talk together about th
 [slide presentazione gianluca]
 
 ---
-
-###what **cost** means?
+<br>
+#what **cost** means?
+![](assets/cost.jpg)
 
 ^
 domanda al pubblico...
 
 ---
 
+<br>
 #it's not all about performances
 
+![](assets/performance.jpg)
+
 ---
-###typescript -> javascript
+###typescript
 
 ```javascript
+const processor: AsyncProcessor = async (
+  orderId: string
+): Promise<PlacedOrderResult> => {
   const order = await orderService(orderId)
   if (order == null) {
     return {
@@ -65,9 +71,29 @@ domanda al pubblico...
     return placedOrderFailed
   }
   return await placeOrderService(order)
-
+}
 ```
 ---
+### javascript
+
+```javascript
+const processor = async (orderId) => {
+  const order = await orderService(orderId)
+  if (order == null) {
+    return {
+      success: false
+    }
+  }
+  const validationResult = await validationService(order)
+  if (!validationResult.valid) {
+    return placedOrderFailed
+  }
+  return await placeOrderService(order)
+}
+```
+---
+
+
 
 ## typescript
 
@@ -155,9 +181,10 @@ domanda al pubblico...
 ```
 
 ---
+#next step
+####**add** an abstraction layer (fp-ts)
 
-###asyncadd an abstraction layer (fp-ts)
-![fit](assets/fpts.png)
+![](assets/step.jpg)
 
 ^
 we add an abstraction layer using fp-ts in order to make code readable and simplify (task) composition
@@ -187,6 +214,8 @@ async typescript 20s
 ![](assets/result.jpg)
 
 ---
+<br>
+#sounds strange
 ![fit](assets/wtf.jpg)
 
 ---
@@ -214,20 +243,36 @@ functional typescript 12s
 ![](assets/result.jpg)
 
 ---
-###LESSION LEARNED
-#### remember to check default compiler options ->
 
-####same code different perfomance depending on compiler option
+![](assets/lesson.jpg)
 
 ---
 
-### let's enforce business rules at compile time
+- **same code could have (huge) different perfomance**
+
+![](assets/lesson.jpg)
+
+---
+
+- same code could have (huge) different perfomance
+- **check default compiler options**
+
+![](assets/lesson.jpg)
+
+---
+#next step
+#### **enforce** business rules at compile time
+
+![](assets/step.jpg)
 
 ---
 
 ###checked functional javascript
 
 ```javascript
+type NotValid = Left<Error>
+type Valid<A> = Right<A>
+type Validated<A> = Either<Error, A>
 
 function validationService (o: Order): Validated<Order>  {
   const r = validateOrder(order)
@@ -282,6 +327,14 @@ function placeOrderService (order: Valid<Order>) {
     chain(mapTask(placeOrderService))
   )
 ```
+---
+
+#RESULTS
+async target es3 typescript 20s
+async target es6 typescript 5s
+functional typescript 12s
+
+![](assets/result.jpg)
 
 ---
 
@@ -291,28 +344,40 @@ async target es6 typescript 5s
 functional typescript 12s
 **checked functional typescript 12.1s**
 
+![](assets/result.jpg)
+
 ---
 
 #RESULTS
 - no performance penalty
 - cognitive overhead
 
----
-
-## can we take best of the two worlds (async + checked)
+![](assets/result.jpg)
 
 ---
 
-#and now something completely different
+###how can achive 
+###the best of 
+###the two world?
+![](assets/magic.jpg)
+
+^
+performance and maintenability
 
 ---
 
-#what happen if we change language?
-
+![fit](assets/montypythons.jpg)
 
 ---
-#RUST
-###zero ~~cost~~ overhead abstraction
+
+#next step
+#### **change** langauge
+
+![](assets/step.jpg)
+
+---
+
+![fit](assets/rust.png)
 
 ---
 
@@ -321,6 +386,29 @@ functional typescript 12s
 ---
 
 ...
+
+---
+
+#RESULT
+async target es3 typescript 20s
+async target es6 typescript 5s
+functional typescript 12s
+checked functional typescript 12.1s
+
+![](assets/result.jpg)
+
+
+---
+
+#RESULT
+async target es3 typescript 20s
+async target es6 typescript 5s
+functional typescript 12s
+checked functional typescript 12.1s
+**rust native [x]s**
+
+![](assets/result.jpg)
+
 
 ---
 
@@ -336,9 +424,25 @@ what about the web? are we forced to pay for abstractio
 
 ---
 #RESULT
+async target es3 typescript 20s
+async target es6 typescript 5s
+functional typescript 12s
+checked functional typescript 12.1s
+rust native [x]s
 
+![](assets/result.jpg)
+
+---
+
+#RESULT
+async target es3 typescript 20s
+async target es6 typescript 5s
+functional typescript 12s
+checked functional typescript 12.1s
 rust native [x]s
 **rust wasm [y]s**
+
+![](assets/result.jpg)
 
 ---
 
