@@ -119,11 +119,15 @@ const processor = async (orderId) => {
 ###"buy a book" use case
 - **create an order of books**
 
+![](assets/usecase.jpg)
+
 ---
 
 ###"buy a book" use case
 - create an order of books
 - **validate the order**
+
+![](assets/usecase.jpg)
 
 ---
 
@@ -132,10 +136,14 @@ const processor = async (orderId) => {
 - validate the order
 - **place the order**
 
+![](assets/usecase.jpg)
+
 ---
 ##benchmark
 
 - **"buy a book" use case**
+
+![](assets/benchmark.jpg)
 
 ---
 ##benchmark
@@ -143,12 +151,16 @@ const processor = async (orderId) => {
 - "buy a book" use case
 - **[xxx] iterations**
 
+![](assets/benchmark.jpg)
+
 ---
 ##benchmark
 
 - "buy a book" use case
 - [xxx] iterations
 - **[yyy]% of failure orders**
+
+![](assets/benchmark.jpg)
 
 ---
 
