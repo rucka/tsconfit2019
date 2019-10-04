@@ -381,11 +381,11 @@ performance and maintenability
 
 ---
 
-...
+[TBD]
 
 ---
 
-...
+[TBD]
 
 ---
 
@@ -411,16 +411,19 @@ checked functional typescript 12.1s
 
 
 ---
-
+<br>
 #what about the web?
+![](assets/web.jpg)
 
 ^
-what about the web? are we forced to pay for abstractio
+what about the web? are we forced to pay for abstraction?
 
 ---
 
-###WebAssembly
-####same code base different host
+#next step
+####WebAssembly (same code base different host)
+
+![](assets/step.jpg)
 
 ---
 #RESULT
@@ -446,40 +449,40 @@ rust native [x]s
 
 ---
 
-vogliamo software migliore
+[vogliamo software migliore]
 
 ---
 
-ma cosa significa migliore?
+[ma cosa significa migliore?]
 
 ---
 
-profit = revenue * time_to_market - cost
+[profit = revenue * time_to_market - cost
 time to market: [0...1]
 
-migliore profit massimo
+migliore profit massimo]
 
 ---
 
-come lo massimiziamo?
+[come lo massimiziamo?]
 
 
 ---
 
-performance vs mantenibilità
+[performance vs mantenibilità]
 
 ---
 
-possiamo ottenere entrambe?
+[possiamo ottenere entrambe?]
 
 ---
 
-no perchè ogni astrazione incide positivamente o sulle performance o sulla mantenibilità, non su entrambe
+[no perchè ogni astrazione incide positivamente o sulle performance o sulla mantenibilità, non su entrambe]
 
 ---
 
 #one more thing
-come incide l'overhead cognitivo?
+[come incide l'overhead cognitivo?[
 
 ---
 
