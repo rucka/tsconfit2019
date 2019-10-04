@@ -585,6 +585,8 @@ maintainability
 
 ---
 #summary
+- cost have different shapes
+- abstractions have different shapes
 - each decision **hides** a cost
 - there are **no** zero cost abstraction
 - choose abstraction depending on the **context**
