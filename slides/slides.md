@@ -90,18 +90,18 @@ domanda al pubblico...
 ---
 
 
-###Simple use case:
+###"buy a book" use case
 - **create an order of books**
 
 ---
 
-###Simple use case:
+###"buy a book" use case
 - create an order of books
 - **validate the order**
 
 ---
 
-###Simple use case:
+###"buy a book" use case
 - create an order of books
 - validate the order
 - **place the order**
@@ -109,9 +109,20 @@ domanda al pubblico...
 ---
 ##benchmark
 
+- **"buy a book" use case**
+
+---
+##benchmark
+
 - "buy a book" use case
-- run [xxx] iterations
-- with [yyy]% of failure orders
+- **[xxx] iterations**
+
+---
+##benchmark
+
+- "buy a book" use case
+- [xxx] iterations
+- **[yyy]% of failure orders**
 
 ---
 
@@ -164,36 +175,43 @@ we add an abstraction layer using fp-ts in order to make code readable and simpl
 ```
 ---
 #RESULTS
+**async typescript 20s**
+
+![](assets/result.jpg)
+
+---
+#RESULTS
 async typescript 20s
+**functional typescript 12s**
+
+![](assets/result.jpg)
+
+---
+![fit](assets/wtf.jpg)
 
 ---
 #RESULTS
 async typescript 20s
 functional typescript 12s
 
----
-
-#WTF???
+![](assets/result.jpg)
 
 ---
+
 #RESULTS
-async typescript 20s
+**async target es3 typescript 20s**
 functional typescript 12s
+
+![](assets/result.jpg)
 
 ---
 
 #RESULTS
 async target es3 typescript 20s
+**async target es6 typescript 5s**
 functional typescript 12s
 
----
-
-#RESULTS
-async target es3 typescript 20s
-async target es6 typescript 5s
-functional typescript 12s
-
-
+![](assets/result.jpg)
 
 ---
 ###LESSION LEARNED
