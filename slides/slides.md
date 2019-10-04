@@ -69,25 +69,44 @@ domanda al pubblico...
 ```
 ---
 
-### typescript give us no performace penalty 
-### but
-### it introduces cognitive overhead
+## typescript
+
+- **no performace penalty**
 
 ---
 
-#but performaces matter
-### let's go to measure 
+## typescript
+
+- no performace penalty
+- **cognitive overhead**
+
+---
+
+##performaces matter
+#### let's go to measure 
+
+![](assets/performance.jpg)
 
 ---
 
 
 ###Simple use case:
-- create an order of books
-- validate the order
-- place the order
+- **create an order of books**
 
 ---
 
+###Simple use case:
+- create an order of books
+- **validate the order**
+
+---
+
+###Simple use case:
+- create an order of books
+- validate the order
+- **place the order**
+
+---
 ##benchmark
 
 - "buy a book" use case
@@ -108,7 +127,7 @@ domanda al pubblico...
 
 ---
 
-###vanilla typescript
+###async typescript
 
 ```javascript
   const order = await orderService(orderId)
