@@ -152,7 +152,7 @@ const processor: AsyncProcessor = async (
 ##benchmark
 
 - "buy a book" use case
-- **[xxx] iterations**
+- **[xxx] different orders**
 
 ![](assets/benchmark.jpg)
 
@@ -160,8 +160,18 @@ const processor: AsyncProcessor = async (
 ##benchmark
 
 - "buy a book" use case
-- [xxx] iterations
-- **[yyy]% of failure orders**
+- [xxx] different orders
+- **[yyy]% orders fail**
+
+![](assets/benchmark.jpg)
+
+---
+##benchmark
+
+- "buy a book" use case
+- [xxx] different orders
+- [yyy]% orders fail
+- **[zzz] iterations**
 
 ![](assets/benchmark.jpg)
 
