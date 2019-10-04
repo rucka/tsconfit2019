@@ -145,7 +145,8 @@ domanda al pubblico...
 
 ---
 
-###let's add an abstraction layer (fp-ts)
+###asyncadd an abstraction layer (fp-ts)
+![fit](assets/fpts.png)
 
 ^
 we add an abstraction layer using fp-ts in order to make code readable and simplify (task) composition
@@ -163,11 +164,11 @@ we add an abstraction layer using fp-ts in order to make code readable and simpl
 ```
 ---
 #RESULTS
-vanilla typescript 20s
+async typescript 20s
 
 ---
 #RESULTS
-vanilla typescript 20s
+async typescript 20s
 functional typescript 12s
 
 ---
@@ -176,20 +177,20 @@ functional typescript 12s
 
 ---
 #RESULTS
-vanilla typescript 20s
+async typescript 20s
 functional typescript 12s
 
 ---
 
 #RESULTS
-vanilla target es3 typescript 20s
+async target es3 typescript 20s
 functional typescript 12s
 
 ---
 
 #RESULTS
-vanilla target es3 typescript 20s
-vanilla target es6 typescript 5s
+async target es3 typescript 20s
+async target es6 typescript 5s
 functional typescript 12s
 
 
@@ -267,8 +268,8 @@ function placeOrderService (order: Valid<Order>) {
 ---
 
 #RESULTS
-vanilla target es3 typescript 20s
-vanilla target es6 typescript 5s
+async target es3 typescript 20s
+async target es6 typescript 5s
 functional typescript 12s
 **checked functional typescript 12.1s**
 
@@ -280,7 +281,7 @@ functional typescript 12s
 
 ---
 
-## can we take best of the two worlds (vanilla + checked)
+## can we take best of the two worlds (async + checked)
 
 ---
 
