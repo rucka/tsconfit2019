@@ -421,8 +421,7 @@ what about the web? are we forced to pay for abstraction?
 ---
 
 #next step
-####WebAssembly (same code base different host)
-
+#### **move** to WebAssembly using the same cost 
 ![](assets/step.jpg)
 
 ---
