@@ -1,7 +1,4 @@
-#the Cost of Abstractions
-
-#### Massimiliano Mantione
-#### Gianluca Carucci
+![](assets/cover.jpg)
 
 ---
 <br>
