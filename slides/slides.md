@@ -29,11 +29,11 @@ ehm... I dont know, but it's the perfect moment to have a talk together about th
 
 ---
 
-[slide presentazione massi]
+![](assets/massimiliano.jpg)
 
 ---
 
-[slide presentazione gianluca]
+![](assets/gianluca.jpg)
 
 ---
 <br>
