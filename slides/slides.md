@@ -53,13 +53,12 @@ domanda al pubblico...
 
 ![](assets/performance.jpg)
 
+
 ---
-###typescript
+### javascript
 
 ```javascript
-const processor: AsyncProcessor = async (
-  orderId: string
-): Promise<PlacedOrderResult> => {
+const processor = async (orderId) => {
   const order = await orderService(orderId)
   if (order == null) {
     return {
@@ -73,11 +72,15 @@ const processor: AsyncProcessor = async (
   return await placeOrderService(order)
 }
 ```
+
 ---
-### javascript
+
+###typescript
 
 ```javascript
-const processor = async (orderId) => {
+const processor: AsyncProcessor = async (
+  orderId: string
+): Promise<PlacedOrderResult> => {
   const order = await orderService(orderId)
   if (order == null) {
     return {
@@ -193,6 +196,23 @@ const processor = async (orderId) => {
 ```
 
 ---
+
+#RESULTS
+...
+
+![](assets/result.jpg)
+
+
+
+---
+
+#RESULTS
+**async typescript 20s**
+
+![](assets/result.jpg)
+
+---
+
 #next step
 ####**add** an abstraction layer (fp-ts)
 
@@ -214,7 +234,7 @@ we add an abstraction layer using fp-ts in order to make code readable and simpl
 ```
 ---
 #RESULTS
-**async typescript 20s**
+async typescript 20s
 
 ![](assets/result.jpg)
 
@@ -368,7 +388,7 @@ functional typescript 12s
 
 ---
 
-###how can achive 
+###how achive 
 ###the best of 
 ###the two world?
 ![](assets/magic.jpg)
@@ -383,7 +403,7 @@ performance and maintenability
 ---
 
 #next step
-#### **change** langauge
+#### **change** language
 
 ![](assets/step.jpg)
 
@@ -433,7 +453,7 @@ what about the web? are we forced to pay for abstraction?
 ---
 
 #next step
-#### **move** to WebAssembly using the same cost 
+#### **move** to WebAssembly using the same code 
 ![](assets/step.jpg)
 
 ---
