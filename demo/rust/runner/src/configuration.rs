@@ -1,5 +1,6 @@
 use crate::api::*;
 use crate::data::BENCHMARK_IDS;
+use crate::process_order_compose::{process_compose_direct, ComposeProcessor};
 use crate::process_order_fp::{process_fp_direct, FpProcessor};
 use crate::process_order_future::{process_future_direct, FutureProcessor};
 use crate::process_order_idiomatic::{process_idiomatic_direct, IdiomaticProcessor};
@@ -15,6 +16,7 @@ pub enum AsyncProcessorKind {
     Imperative,
     Idiomatic,
     Future,
+    Compose,
     Fp,
 }
 
@@ -24,6 +26,7 @@ impl AsyncProcessorKind {
             AsyncProcessorKind::Imperative => ImperativeProcessor::processor(),
             AsyncProcessorKind::Idiomatic => IdiomaticProcessor::processor(),
             AsyncProcessorKind::Future => FutureProcessor::processor(),
+            AsyncProcessorKind::Compose => ComposeProcessor::processor(),
             AsyncProcessorKind::Fp => FpProcessor::processor(),
         }
     }
@@ -33,6 +36,7 @@ impl AsyncProcessorKind {
             AsyncProcessorKind::Imperative => "imper",
             AsyncProcessorKind::Idiomatic => "idiom",
             AsyncProcessorKind::Future => "future",
+            AsyncProcessorKind::Compose => "compose",
             AsyncProcessorKind::Fp => "fp",
         }
     }
@@ -340,6 +344,15 @@ pub async fn benchmark_direct(
             AsyncProcessorKind::Future => {
                 async_runner_direct(
                     &process_future_direct,
+                    config.epoch as usize,
+                    config.failure_rate,
+                    &BENCHMARK_IDS,
+                )
+                .await
+            }
+            AsyncProcessorKind::Compose => {
+                async_runner_direct(
+                    &process_compose_direct,
                     config.epoch as usize,
                     config.failure_rate,
                     &BENCHMARK_IDS,

@@ -24,7 +24,8 @@
   "author": "Gianluca Carucci <gianluca@carucci.org>, Massimiliano Mantione <massimiliano.mantione@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "fp-ts": "^2.0.5"
+    "fp-ts": "^2.0.5",
+    "node-memwatch": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "^12.7.2",
