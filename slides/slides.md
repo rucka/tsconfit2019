@@ -27,6 +27,10 @@ My answer is always the same....
 ^
 ehm... I dont know, but it's the perfect moment to have a talk together about this topic!
 
+
+---
+![](assets/legend.jpg)
+
 ---
 
 ![](assets/massimiliano.jpg)
@@ -48,7 +52,7 @@ domanda al pubblico...
 <br>
 #it's not all about performances
 
-![](assets/performance.jpg)
+![](assets/performance_m.jpg)
 
 
 ---
@@ -69,6 +73,8 @@ const processor = async (orderId) => {
   return await placeOrderService(order)
 }
 ```
+
+![](assets/bg_g.jpg)
 
 ---
 
@@ -91,6 +97,8 @@ const processor: AsyncProcessor = async (
   return await placeOrderService(order)
 }
 ```
+![](assets/bg_g.jpg)
+
 ---
 
 
@@ -99,6 +107,8 @@ const processor: AsyncProcessor = async (
 
 - **no performace penalty**
 
+![](assets/bg_m.jpg)
+
 ---
 
 ## typescript
@@ -106,12 +116,14 @@ const processor: AsyncProcessor = async (
 - no performace penalty
 - **cognitive overhead**
 
+![](assets/bg_g.jpg)
+
 ---
 
 ##performaces matter
 #### let's go to measure 
 
-![](assets/performance.jpg)
+![](assets/performance_m.jpg)
 
 ---
 
@@ -143,7 +155,7 @@ const processor: AsyncProcessor = async (
 
 - **"buy a book" use case**
 
-![](assets/benchmark.jpg)
+![](assets/benchmark_m.jpg)
 
 ---
 ##benchmark
@@ -151,7 +163,7 @@ const processor: AsyncProcessor = async (
 - "buy a book" use case
 - **[xxx] different orders**
 
-![](assets/benchmark.jpg)
+![](assets/benchmark_m.jpg)
 
 ---
 ##benchmark
@@ -160,7 +172,7 @@ const processor: AsyncProcessor = async (
 - [xxx] different orders
 - **[yyy]% orders fail**
 
-![](assets/benchmark.jpg)
+![](assets/benchmark_m.jpg)
 
 ---
 ##benchmark
@@ -170,7 +182,7 @@ const processor: AsyncProcessor = async (
 - [yyy]% orders fail
 - **[zzz] iterations**
 
-![](assets/benchmark.jpg)
+![](assets/benchmark_m.jpg)
 
 ---
 
@@ -201,14 +213,14 @@ const processor: AsyncProcessor = async (
   }
   return await placeOrderService(order)
 ```
+![](assets/bg_m.jpg)
 
 ---
 
 #RESULTS
 ...
 
-![](assets/result.jpg)
-
+![](assets/result_m.jpg)
 
 
 ---
@@ -216,14 +228,14 @@ const processor: AsyncProcessor = async (
 #RESULTS
 **async typescript 20s**
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 
 #next step
 ####**add** an abstraction layer (fp-ts)
 
-![](assets/step.jpg)
+![](assets/step_g.jpg)
 
 ^
 we add an abstraction layer using fp-ts in order to make code readable and simplify (task) composition
@@ -239,30 +251,33 @@ we add an abstraction layer using fp-ts in order to make code readable and simpl
     chain(placeOrderService)
   )
 ```
+
+![](assets/bg_g.jpg)
+
 ---
 #RESULTS
 async typescript 20s
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 #RESULTS
 async typescript 20s
 **functional typescript 12s**
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 <br>
 #sounds strange
-![fit](assets/wtf.jpg)
+![fit](assets/wtf_m.jpg)
 
 ---
 #RESULTS
 async typescript 20s
 functional typescript 12s
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 
@@ -270,7 +285,7 @@ functional typescript 12s
 **async typescript(_target es3_) 20s**
 functional typescript 12s
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 
@@ -279,30 +294,30 @@ async typescript(_target es3_) 20s
 **async typescript(_target es6_) 5s**
 functional typescript 12s
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 
-![](assets/lesson.jpg)
+![](assets/lesson_m.jpg)
 
 ---
 
 - **same code could have (huge) different perfomance**
 
-![](assets/lesson.jpg)
+![](assets/lesson_m.jpg)
 
 ---
 
 - same code could have (huge) different perfomance
 - **check default compiler options**
 
-![](assets/lesson.jpg)
+![](assets/lesson_m.jpg)
 
 ---
 #next step
 #### **enforce** business rules at compile time
 
-![](assets/step.jpg)
+![](assets/step_g.jpg)
 
 ---
 
@@ -324,6 +339,7 @@ function validationService (o: Order): Validated<Order>  {
 
 
 ```
+![](assets/bg_g.jpg)
 
 ---
 
@@ -353,6 +369,8 @@ function placeOrderService (order: Valid<Order>) {
 }
 
 ```
+![](assets/bg_g.jpg)
+
 ---
 
 ###checked functional javascript
@@ -366,6 +384,8 @@ function placeOrderService (order: Valid<Order>) {
     chain(mapTask(placeOrderService))
   )
 ```
+![](assets/bg_g.jpg)
+
 ---
 
 #RESULTS
@@ -373,7 +393,7 @@ async typescript(_target es3_) 20s
 async typescript(_target es6_) 5s
 functional typescript 12s
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 
@@ -383,7 +403,7 @@ async typescript(_target es6_) 5s
 functional typescript 12s
 **checked functional typescript 12.1s**
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 
@@ -391,40 +411,44 @@ functional typescript 12s
 - no performance penalty
 - cognitive overhead
 
-![](assets/result.jpg)
+![](assets/result_g.jpg)
 
 ---
 
 ###how achive 
 ###the best of 
 ###the two world?
-![](assets/magic.jpg)
+![](assets/magic_m.jpg)
 
 ^
 performance and maintenability
 
 ---
 
-![fit](assets/montypythons.jpg)
+![fit](assets/montypythons_m.jpg)
 
 ---
 
 #next step
 #### **change** language
 
-![](assets/step.jpg)
+![](assets/step_m.jpg)
 
 ---
 
-![fit](assets/rust.png)
+![fit](assets/rust_m.jpg)
+
+---
+
+[TBD]
+
+![](assets/bg_m.jpg)
 
 ---
 
 [TBD]
 
----
-
-[TBD]
+![](assets/bg_m.jpg)
 
 ---
 
@@ -434,7 +458,7 @@ async typescript(_target es6_) 5s
 functional typescript 12s
 checked functional typescript 12.1s
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 
 ---
@@ -446,13 +470,13 @@ functional typescript 12s
 checked functional typescript 12.1s
 **rust native [x]s**
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 
 ---
 <br>
 #what about the web?
-![](assets/web.jpg)
+![](assets/web_m.jpg)
 
 ^
 what about the web? are we forced to pay for abstraction?
@@ -461,7 +485,7 @@ what about the web? are we forced to pay for abstraction?
 
 #next step
 #### same code from native **to WebAssembly** 
-![](assets/step.jpg)
+![](assets/step_m.jpg)
 
 ---
 #RESULT
@@ -471,7 +495,7 @@ functional typescript 12s
 checked functional typescript 12.1s
 rust native [x]s
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 
@@ -483,31 +507,31 @@ checked functional typescript 12.1s
 rust native [x]s
 **rust wasm [y]s**
 
-![](assets/result.jpg)
+![](assets/result_m.jpg)
 
 ---
 
-![](assets/summary.jpg)
+![](assets/summary_g.jpg)
 
 ---
 
 - **we're focused on better software**
 
-![](assets/summary.jpg)
+![](assets/summary_g.jpg)
 
 ---
 
 - we're focused on better software
 - **but what "better" software means?**
 
-![](assets/summary.jpg)
+![](assets/summary_g.jpg)
 
 ---
 
 $$profit(t) = (revenue(t)*time2market)-cost(t), 
 \quad\quad \text{[$0>=time2market<=1$]}$$
 
-![](assets/summary.jpg)
+![](assets/summary_g.jpg)
 
 ---
 
@@ -515,7 +539,7 @@ $$profit(t) = (revenue(t)*time2market)-cost(t),
 - but what "better" software means?
 - **$$"better" = max(profit(t))$$**
 
-![](assets/summary.jpg)
+![](assets/summary_g.jpg)
 
 ---
 
@@ -524,7 +548,7 @@ $$profit(t) = (revenue(t)*time2market)-cost(t),
 - $$"better" = max(profit(t))$$
 - **how do that?**
 
-![](assets/summary.jpg)
+![](assets/summary_g.jpg)
 
 ---
 
@@ -540,7 +564,7 @@ maintainability
 - :-1: performance 
 - :+1: maintainability
 
-![](assets/summary.jpg)
+![](assets/summary_g.jpg)
 
 ---
 
@@ -548,37 +572,37 @@ maintainability
 - :+1: performance 
 - :-1: maintainability
 
-![](assets/summary.jpg)
+![](assets/summary_m.jpg)
 
 ---
 
 #but...
 
-![fit](assets/homer_doubt.png)
+![fit](assets/homer_doubt_g.jpg)
 
 ---
 
 ###can we reach **both** performance and maintainability?
 
-![fit](assets/homer_doubt.png)
+![fit](assets/homer_doubt_g.jpg)
 
 ---
 
 ###**rust** is the answer!
 ####zero ~~cost~~ overhead abstraction
-![fit](assets/homer_yeah.png)
+![fit](assets/homer_yeah_m.jpg)
 
 ---
 
 #but...
 
-![fit](assets/homer_doubt.png)
+![fit](assets/homer_doubt_g.jpg)
 
 ---
 
 ###what about **cognitive overhead**?
 
-![fit](assets/homer_doh.png)
+![fit](assets/homer_doh_g.jpg)
 
 ---
 #summary
