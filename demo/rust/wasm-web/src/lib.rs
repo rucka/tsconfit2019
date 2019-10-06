@@ -22,6 +22,11 @@ extern "C" {
     fn now() -> f64;
 }
 
+#[wasm_bindgen]
+extern "C" {
+    fn alert(s: &str);
+}
+
 // This is like the `main` function, except for JavaScript.
 #[wasm_bindgen(start)]
 pub fn main_js() -> Result<(), JsValue> {
@@ -35,6 +40,8 @@ pub fn main_js() -> Result<(), JsValue> {
     console::log_1(&JsValue::from_str("WASM code start"));
 
     runner::run(&|message| log(message), &now);
+
+    alert("Done: please copy results from the console.");
 
     Ok(())
 }
