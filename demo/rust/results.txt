@@ -1,4 +1,5 @@
 # Rust results (usec per iteration, msec total per 10M iterations)
+
  --- Native
  - Dynamic
 sync	0.1468	1468
@@ -18,3 +19,23 @@ idiom	0.2382	2382
 future	0.2827	2827
 futdyn	0.3365	3365
 fp	0.3557	3557
+
+ --- WASM
+ - Dynamic
+sync	0.2458	2458
+syncfp	0.2404	2404
+compose	0.3633	3633
+imper	0.3845	3845
+idiom	0.3876	3876
+future	0.4078	4078
+futdyn	0.6517	6517
+fp	0.742	7420
+ - Direct
+sync	0.231	2310
+syncfp	0.2306	2306
+compose	0.3347	3347
+imper	0.3262	3262
+idiom	0.3292	3292
+future	0.3624	3624
+futdyn	0.5919	5919
+fp	0.6594	6594
