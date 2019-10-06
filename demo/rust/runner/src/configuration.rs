@@ -3,6 +3,7 @@ use crate::data::BENCHMARK_IDS;
 use crate::process_order_compose::{process_compose_direct, ComposeProcessor};
 use crate::process_order_fp::{process_fp_direct, FpProcessor};
 use crate::process_order_future::{process_future_direct, FutureProcessor};
+use crate::process_order_futuredyn::{process_future_dyn_direct, FutureDynProcessor};
 use crate::process_order_idiomatic::{process_idiomatic_direct, IdiomaticProcessor};
 use crate::process_order_imperative::{process_imperative_direct, ImperativeProcessor};
 use crate::process_order_imperative_sync::{process_sync_direct, ImperativeProcessorSync};
@@ -16,6 +17,7 @@ pub enum AsyncProcessorKind {
     Imperative,
     Idiomatic,
     Future,
+    FutureDyn,
     Compose,
     Fp,
 }
@@ -26,6 +28,7 @@ impl AsyncProcessorKind {
             AsyncProcessorKind::Imperative => ImperativeProcessor::processor(),
             AsyncProcessorKind::Idiomatic => IdiomaticProcessor::processor(),
             AsyncProcessorKind::Future => FutureProcessor::processor(),
+            AsyncProcessorKind::FutureDyn => FutureDynProcessor::processor(),
             AsyncProcessorKind::Compose => ComposeProcessor::processor(),
             AsyncProcessorKind::Fp => FpProcessor::processor(),
         }
@@ -36,6 +39,7 @@ impl AsyncProcessorKind {
             AsyncProcessorKind::Imperative => "imper",
             AsyncProcessorKind::Idiomatic => "idiom",
             AsyncProcessorKind::Future => "future",
+            AsyncProcessorKind::FutureDyn => "futdyn",
             AsyncProcessorKind::Compose => "compose",
             AsyncProcessorKind::Fp => "fp",
         }
@@ -344,6 +348,15 @@ pub async fn benchmark_direct(
             AsyncProcessorKind::Future => {
                 async_runner_direct(
                     &process_future_direct,
+                    config.epoch as usize,
+                    config.failure_rate,
+                    &BENCHMARK_IDS,
+                )
+                .await
+            }
+            AsyncProcessorKind::FutureDyn => {
+                async_runner_direct(
+                    &process_future_dyn_direct,
                     config.epoch as usize,
                     config.failure_rate,
                     &BENCHMARK_IDS,

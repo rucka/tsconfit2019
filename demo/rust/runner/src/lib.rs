@@ -10,6 +10,7 @@ mod data;
 mod process_order_compose;
 mod process_order_fp;
 mod process_order_future;
+mod process_order_futuredyn;
 mod process_order_idiomatic;
 mod process_order_imperative;
 mod process_order_imperative_sync;
@@ -49,6 +50,7 @@ async fn main_async(print: &impl Fn(&str), timestamp: &impl Fn() -> f64) -> () {
         ProcessorKind::AsyncKind(AsyncProcessorKind::Imperative),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Idiomatic),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Future),
+        ProcessorKind::AsyncKind(AsyncProcessorKind::FutureDyn),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Compose),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Fp),
     ] {
