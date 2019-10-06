@@ -14,6 +14,7 @@ mod process_order_futuredyn;
 mod process_order_idiomatic;
 mod process_order_imperative;
 mod process_order_imperative_sync;
+mod process_order_syncfp;
 
 fn report(
     kind: ProcessorKind,
@@ -47,11 +48,12 @@ async fn run_benchmerk(kind: ProcessorKind, print: &impl Fn(&str), timestamp: &i
 async fn main_async(print: &impl Fn(&str), timestamp: &impl Fn() -> f64) -> () {
     for k in &[
         ProcessorKind::SyncKind(SyncProcessorKind::Imperative),
+        ProcessorKind::SyncKind(SyncProcessorKind::Fp),
+        ProcessorKind::AsyncKind(AsyncProcessorKind::Compose),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Imperative),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Idiomatic),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Future),
         ProcessorKind::AsyncKind(AsyncProcessorKind::FutureDyn),
-        ProcessorKind::AsyncKind(AsyncProcessorKind::Compose),
         ProcessorKind::AsyncKind(AsyncProcessorKind::Fp),
     ] {
         run_benchmerk(*k, print, timestamp).await;

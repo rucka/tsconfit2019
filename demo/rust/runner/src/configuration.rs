@@ -7,6 +7,7 @@ use crate::process_order_futuredyn::{process_future_dyn_direct, FutureDynProcess
 use crate::process_order_idiomatic::{process_idiomatic_direct, IdiomaticProcessor};
 use crate::process_order_imperative::{process_imperative_direct, ImperativeProcessor};
 use crate::process_order_imperative_sync::{process_sync_direct, ImperativeProcessorSync};
+use crate::process_order_syncfp::{process_syncfp_direct, SyncFpProcessor};
 use std::future::Future;
 
 const WARMUP_COUNT: i32 = 200000;
@@ -49,14 +50,14 @@ impl AsyncProcessorKind {
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum SyncProcessorKind {
     Imperative,
-    //Fp,
+    Fp,
 }
 
 impl SyncProcessorKind {
     pub fn processor(&self) -> &dyn SyncProcessor {
         match self {
             SyncProcessorKind::Imperative => ImperativeProcessorSync::processor(),
-            // SyncProcessorKind::Fp => VanillaProcessor::processor(),
+            SyncProcessorKind::Fp => SyncFpProcessor::processor(),
         }
     }
 
@@ -69,14 +70,17 @@ impl SyncProcessorKind {
         match self {
             SyncProcessorKind::Imperative => {
                 sync_runner_direct(&process_sync_direct, iterations, failure_rate, ids)
-            } // SyncProcessorKind::Fp => sync_runner_direct(xxx, iterations, failure_rate, ids),
+            }
+            SyncProcessorKind::Fp => {
+                sync_runner_direct(&process_syncfp_direct, iterations, failure_rate, ids)
+            }
         }
     }
 
     pub fn name(&self) -> &'static str {
         match self {
             SyncProcessorKind::Imperative => "sync",
-            // SyncProcessorKind::Fp => "syncfp",
+            SyncProcessorKind::Fp => "syncfp",
         }
     }
 }
