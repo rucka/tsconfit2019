@@ -1,73 +1,21 @@
-All benchmarks: 4 lines ES2018, 4 lines ES3
+# TypeScript results (usec per iteration, heap growth for 500K iterations)
 
-sync 0.188 50000
-sync 0.218 51944
-sync 0.194 50112
-sync 0.218 50024
-sync 0.19 64416
-sync 0.186 61296
-sync 0.196 62584
-sync 0.196 61264
+ - ES2018
+sync    0.188   50520
+cb      0.636  107370
+syncfp  0.708   94392
+cbasync 1.756  101808
+promise 1.732 4094808
+async   2.004   77550
+fp      5.636  141488
+checked 5.402  125826
 
-cb 0.636 113624
-cb 0.736 94472
-cb 0.692 109744
-cb 0.686 111640
-cb 1.294 74712
-cb 1.268 67224
-cb 1.302 72288
-cb 1.394 71208
-
-syncfp 0.846 93128
-syncfp 0.708 92472
-syncfp 0.72 94112
-syncfp 0.772 97856
-syncfp 0.734 98960
-syncfp 0.716 102104
-syncfp 0.72 99304
-syncfp 0.834 109096
-
-cbasync 1.916 97584
-cbasync 1.798 99472
-cbasync 1.9 102672
-cbasync 1.756 107504
-cbasync 2.438 109544
-cbasync 2.73 109336
-cbasync 2.686 113424
-cbasync 2.932 123736
-
-promise 1.732 4098616
-promise 1.86 4090776
-promise 1.762 4090776
-promise 1.83 4099064
-promise 3.556 4099224
-promise 3.176 4104008
-promise 3.106 4107584
-promise 3.354 4106816
-
-async 2.094 74064
-async 2.102 74064
-async 2.138 79984
-async 2.004 82088
-async 6.772 89088
-async 6.784 71472
-async 7.01 73424
-async 7.894 83312
-
-fp 5.758 122864
-fp 5.858 158248
-fp 5.636 162888
-fp 5.878 121952
-fp 6.544 122048
-fp 5.952 115120
-fp 6.516 115864
-fp 6.042 126320
-
-checked 5.402 131928
-checked 5.854 121656
-checked 5.506 116784
-checked 5.88 136936
-checked 6.638 133696
-checked 5.858 133592
-checked 6.098 121896
-checked 6.98 113456
+ - ES3
+sync    0.186   62390
+cb      1.268   71358
+syncfp  0.716  102366
+cbasync 2.438  114010
+promise 3.106 4104408
+async   6.772   79324
+fp      5.952  119838
+checked 5.858  125660
