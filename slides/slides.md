@@ -408,7 +408,15 @@ functional typescript 5.636μs
 ---
 
 #RESULTS
+Show typescript-simple.png
+
+![](assets/result_m.jpg)
+
+---
+
+#RESULTS
 - no performance penalty
+- slightly *faster* (one less `chain`?)
 - cognitive overhead
 
 ![](assets/result_g.jpg)
@@ -440,13 +448,21 @@ performance and maintenability
 
 ---
 
-[TBD]
+# What does *zero cost* mean?
+- *zero cost* for the abstractions you *do not use*
+- what you *do* use, cannot be done *any better*
+- this means "zero *runtime overhead*"
+- you will pay a *build time* cost 
+- plus cognitive overhead...
 
 ![](assets/bg_m.jpg)
 
 ---
 
-[TBD]
+# A Rust implementation
+- faithful to the Typescript one
+- line by line adaptation
+- let's benchmark!
 
 ![](assets/bg_m.jpg)
 
@@ -457,6 +473,13 @@ async typescript 2.004μs
 
 ![](assets/result_m.jpg)
 
+---
+
+#RESULTS
+async typescript 2.004μs
+**what do you expect?**
+
+![](assets/result_m.jpg)
 
 ---
 
@@ -466,6 +489,60 @@ async typescript 2.004μs
 
 ![](assets/result_m.jpg)
 
+---
+
+#RESULTS
+async typescript 2.004μs
+async rust (native) 0.2410μs
+**and 8x speedup?**
+
+![](assets/result_m.jpg)
+
+---
+
+# WAT?
+does this make sense?
+is it a fair comparison?
+let's investigate
+we start from scratch
+with a synchronous typescript version
+
+![](assets/bg_m.jpg)
+
+---
+
+# Start from Scratch
+from *synchronous* typescript version
+then we add minimal abstractions
+one by one
+and benchmark each step
+
+![](assets/bg_m.jpg)
+
+---
+
+#RESULTS
+Show typescript-full.png
+(briefly describe each abstraction step)
+
+![](assets/bg_m.jpg)
+
+---
+
+#What Happened?
+plain Typescript is *fast*
+abstractions built on it are *slow*
+the nodejs event loop does *not* help much
+let's do the same with Rust...
+
+![](assets/bg_m.jpg)
+
+---
+
+#RESULTS
+Show typescript-rust.png
+
+![](assets/bg_m.jpg)
 
 ---
 <br>
@@ -483,7 +560,7 @@ what about the web? are we *forced* to pay for abstractions?
 
 ---
 #RESULTS
-(just show the chart...)
+Show typescript-wasm.png
 
 ![](assets/result_m.jpg)
 
@@ -587,8 +664,8 @@ maintainability
 - costs have different shapes
 - abstractions have different shapes
 - design decisions **involve** a costs
-- there are **no** zero cost abstractions
-- we can choose **where** to incur costs
+- there are **no** zero cost abstractions, but...
+- ...we can choose **where** to incur costs
 - choose abstractions depending on the **context**
 
 ![](assets/summary.jpg)
