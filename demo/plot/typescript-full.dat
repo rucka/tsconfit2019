@@ -1,0 +1,26 @@
+set terminal png transparent size 1920,1080 lw 10 font arial 28
+set border lw 0.5 lc rgb "white"
+set key textcolor rgb "white"
+set grid xtics ytics linestyle "dashed" lw 0.2 lc rgb "white"
+set output "typescript-full.png"
+plot \
+  "-" using 2:xticlabels(1) with lines lt rgb "red" title "Typescript → ES3", \
+  "-" using 2:xticlabels(1) with lines lt rgb "blue" title "Typescript → ES2018"
+Sync    0.186
+CB      1.268
+SyncFP  0.716
+CBasync 2.438
+Promise 3.106
+Async   6.772
+FP      5.952
+Checked 5.858
+e
+Sync    0.188
+CB      0.636
+SyncFP  0.708
+CBasync 1.756
+Promise 1.732
+Async   2.004
+FP      5.636
+Checked 5.402
+e

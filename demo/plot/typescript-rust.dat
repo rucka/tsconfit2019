@@ -1,0 +1,32 @@
+set terminal png transparent size 1920,1080 lw 10 font arial 28
+set border lw 0.5 lc rgb "white"
+set key textcolor rgb "white"
+set grid xtics ytics linestyle "dashed" lw 0.2 lc rgb "white"
+set output "typescript-rust.png"
+plot \
+  "-" using 2:xticlabels(1) with lines lt rgb "blue" title "Typescript", \
+  "-" using 2:xticlabels(1) with lines lt rgb "red" title "Rust"
+Sync    0.188
+CB      0.636
+SyncFP  0.708
+Compose 1.232
+CBasync 1.756
+Promise 1.732
+Async   2.004
+Idiom   3.2146
+Dynamic 4.4253
+FP      5.636
+Checked 5.402
+e
+Sync    0.1482
+CB      0.1476
+SyncFP  0.1470
+Compose 0.1998
+CBasync 0.2412
+Promise 0.2827
+Async   0.2410
+Idiom   0.2382
+Dynamic 0.3365
+FP      0.3557
+Checked 0.3557
+e
