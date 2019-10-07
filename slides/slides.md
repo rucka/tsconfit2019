@@ -7,8 +7,8 @@
 ![](assets/partenza.jpg)
 
 ^
-this story starts with me and Massi take the train from milan to Lecco reaching our Hyperfair office.
-Often I tell to Massi about my journey in functional programming structure like Monad, ADT and so on... and how them helps me to make my code more readable checked and powerfull.
+This story starts with me and Massi traveling by train from Milan to Lecco to reach our Hyperfair office.
+Often I tell Massi about my adventures in functional programming structures like Monad, ADT and so on... and how them help me making my code more readable, safe and powerful.
 
 ---
 
@@ -18,7 +18,7 @@ Often I tell to Massi about my journey in functional programming structure like 
 ![](assets/lecco.jpg)
 
 ^
-The strange thing is all trip ends in the same way, with Massi that ask me "Cool, but what about the cost of those abstractions?"
+The strange thing is every trip ends in the same way, with Massi asking me "Cool, but what about the cost of those abstractions?"
 My answer is always the same....
 
 ---
@@ -41,7 +41,7 @@ ehm... I dont know, but it's the perfect moment to have a talk together about th
 
 ---
 <br>
-#what **cost** means?
+#what does **cost** mean?
 ![](assets/cost.jpg)
 
 ^
@@ -50,7 +50,7 @@ domanda al pubblico...
 ---
 
 <br>
-#it's not all about performances
+#it's not all about performance
 
 ![](assets/performance_m.jpg)
 
@@ -120,8 +120,8 @@ const processor: AsyncProcessor = async (
 
 ---
 
-##performaces matter
-#### let's go to measure 
+##performace matters
+#### let's measure 
 
 ![](assets/performance_m.jpg)
 
@@ -161,7 +161,7 @@ const processor: AsyncProcessor = async (
 ##benchmark
 
 - "buy a book" use case
-- **[xxx] different orders**
+- **500k different orders**
 
 ![](assets/benchmark_m.jpg)
 
@@ -169,8 +169,8 @@ const processor: AsyncProcessor = async (
 ##benchmark
 
 - "buy a book" use case
-- [xxx] different orders
-- **[yyy]% orders fail**
+- 500k different orders
+- **5% failure rate**
 
 ![](assets/benchmark_m.jpg)
 
@@ -178,9 +178,9 @@ const processor: AsyncProcessor = async (
 ##benchmark
 
 - "buy a book" use case
-- [xxx] different orders
-- [yyy]% orders fail
-- **[zzz] iterations**
+- 500k different orders
+- 5% failure rate
+- **measure mean order time**
 
 ![](assets/benchmark_m.jpg)
 
@@ -226,7 +226,7 @@ const processor: AsyncProcessor = async (
 ---
 
 #RESULTS
-**async typescript 20s**
+**async typescript 6.772μs**
 
 ![](assets/result_m.jpg)
 
@@ -238,7 +238,7 @@ const processor: AsyncProcessor = async (
 ![](assets/step_g.jpg)
 
 ^
-we add an abstraction layer using fp-ts in order to make code readable and simplify (task) composition
+we add an abstraction layer using fp-ts in order to make the code more readable and to simplify (task) composition
 
 ---
 
@@ -256,43 +256,43 @@ we add an abstraction layer using fp-ts in order to make code readable and simpl
 
 ---
 #RESULTS
-async typescript 20s
+async typescript 6.772μs
 
 ![](assets/result_m.jpg)
 
 ---
 #RESULTS
-async typescript 20s
-**functional typescript 12s**
+async typescript 6.772μs
+**functional typescript 5.952μs**
 
 ![](assets/result_m.jpg)
 
 ---
 <br>
-#sounds strange
+#this sounds strange
 ![fit](assets/wtf_m.jpg)
 
 ---
 #RESULTS
-async typescript 20s
-functional typescript 12s
+async typescript 6.772μs
+functional typescript 5.952μs
 
 ![](assets/result_m.jpg)
 
 ---
 
 #RESULTS
-**async typescript(_target es3_) 20s**
-functional typescript 12s
+**async typescript(_target es3_) 6.772μs**
+functional typescript 5.952μs
 
 ![](assets/result_m.jpg)
 
 ---
 
 #RESULTS
-async typescript(_target es3_) 20s
-**async typescript(_target es6_) 5s**
-functional typescript 12s
+async typescript(_target es3_) 6.772μs
+**async typescript(_target es6_) 2.004μs**
+functional typescript 5.636μs
 
 ![](assets/result_m.jpg)
 
@@ -302,13 +302,13 @@ functional typescript 12s
 
 ---
 
-- **same code could have (huge) different perfomance**
+- **the same code can run with (hugely) different perfomance**
 
 ![](assets/lesson_m.jpg)
 
 ---
 
-- same code could have (huge) different perfomance
+- the same code can run with (hugely) different perfomance
 - **check default compiler options**
 
 ![](assets/lesson_m.jpg)
@@ -389,19 +389,19 @@ function placeOrderService (order: Valid<Order>) {
 ---
 
 #RESULTS
-async typescript(_target es3_) 20s
-async typescript(_target es6_) 5s
-functional typescript 12s
+async typescript(_target es3_) 6.772μs
+async typescript(_target es6_) 2.004μs
+functional typescript 5.636μs
 
 ![](assets/result_m.jpg)
 
 ---
 
 #RESULTS
-async typescript(_target es3_) 20s
-async typescript(_target es6_) 5s
-functional typescript 12s
-**checked functional typescript 12.1s**
+async typescript(_target es3_) 6.772μs
+async typescript(_target es6_) 2.004μs
+functional typescript 5.636μs
+**checked functional typescript 5.402μs**
 
 ![](assets/result_m.jpg)
 
@@ -415,9 +415,9 @@ functional typescript 12s
 
 ---
 
-###how achive 
+###can we have 
 ###the best of 
-###the two world?
+###both worlds?
 ![](assets/magic_m.jpg)
 
 ^
@@ -430,7 +430,7 @@ performance and maintenability
 ---
 
 #next step
-#### **change** language
+#### a **different** language
 
 ![](assets/step_m.jpg)
 
@@ -452,23 +452,17 @@ performance and maintenability
 
 ---
 
-#RESULT
-async typescript(_target es3_) 20s
-async typescript(_target es6_) 5s
-functional typescript 12s
-checked functional typescript 12.1s
+#RESULTS
+async typescript 2.004μs
 
 ![](assets/result_m.jpg)
 
 
 ---
 
-#RESULT
-async typescript(_target es3_) 20s
-async typescript(_target es6_) 5s
-functional typescript 12s
-checked functional typescript 12.1s
-**rust native [x]s**
+#RESULTS
+async typescript 2.004μs
+**async rust (native) 0.2410μs**
 
 ![](assets/result_m.jpg)
 
@@ -479,33 +473,17 @@ checked functional typescript 12.1s
 ![](assets/web_m.jpg)
 
 ^
-what about the web? are we forced to pay for abstraction?
+what about the web? are we *forced* to pay for abstractions?
 
 ---
 
 #next step
-#### same code from native **to WebAssembly** 
+#### same Rust code running on **WebAssembly** 
 ![](assets/step_m.jpg)
 
 ---
-#RESULT
-async typescript(_target es3_) 20s
-async typescript(_target es6_) 5s
-functional typescript 12s
-checked functional typescript 12.1s
-rust native [x]s
-
-![](assets/result_m.jpg)
-
----
-
-#RESULT
-async typescript(_target es3_) 20s
-async typescript(_target es6_) 5s
-functional typescript 12s
-checked functional typescript 12.1s
-rust native [x]s
-**rust wasm [y]s**
+#RESULTS
+(just show the chart...)
 
 ![](assets/result_m.jpg)
 
@@ -515,14 +493,14 @@ rust native [x]s
 
 ---
 
-- **we're focused on better software**
+- **we're focusing on better software**
 
 ![](assets/summary_g.jpg)
 
 ---
 
-- we're focused on better software
-- **but what "better" software means?**
+- we're focusing on better software
+- **but what does "better" software mean?**
 
 ![](assets/summary_g.jpg)
 
@@ -535,18 +513,18 @@ $$profit(t) = (revenue(t)*time2market)-cost(t),
 
 ---
 
-- we're focused on better software
-- but what "better" software means?
+- we're focusing on better software
+- but what does "better" software mean?
 - **$$"better" = max(profit(t))$$**
 
 ![](assets/summary_g.jpg)
 
 ---
 
-- we're focused on better software
-- but what "better" software means?
+- we're focusing on better software
+- but what does "better" software mean?
 - $$"better" = max(profit(t))$$
-- **how do that?**
+- **how do we do that?**
 
 ![](assets/summary_g.jpg)
 
@@ -582,7 +560,7 @@ maintainability
 
 ---
 
-###can we reach **both** performance and maintainability?
+###can we achieve **both** performance and maintainability?
 
 ![fit](assets/homer_doubt_g.jpg)
 
@@ -606,11 +584,12 @@ maintainability
 
 ---
 #summary
-- cost have different shapes
+- costs have different shapes
 - abstractions have different shapes
-- each decision **hides** a cost
-- there are **no** zero cost abstraction
-- choose abstraction depending on the **context**
+- design decisions **involve** a costs
+- there are **no** zero cost abstractions
+- we can choose **where** to incur costs
+- choose abstractions depending on the **context**
 
 ![](assets/summary.jpg)
 
