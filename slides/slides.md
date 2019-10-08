@@ -116,6 +116,18 @@ const processor: AsyncProcessor = async (
 - no performace penalty
 - **cognitive overhead**
 
+
+![](assets/bg_g.jpg)
+
+---
+
+## typescript
+
+- no performace penalty
+- cognitive overhead
+- **you will pay a *build time* cost**
+
+
 ![](assets/bg_g.jpg)
 
 ---
@@ -217,7 +229,7 @@ const processor: AsyncProcessor = async (
 
 ---
 
-#RESULTS
+#Async
 ...
 
 ![](assets/result_m.jpg)
@@ -225,7 +237,7 @@ const processor: AsyncProcessor = async (
 
 ---
 
-#RESULTS
+#Async
 **async typescript 6.772μs**
 
 ![](assets/result_m.jpg)
@@ -255,13 +267,13 @@ we add an abstraction layer using fp-ts in order to make the code more readable 
 ![](assets/bg_g.jpg)
 
 ---
-#RESULTS
+#from Async to FP
 async typescript 6.772μs
 
 ![](assets/result_m.jpg)
 
 ---
-#RESULTS
+#from Async to FP
 async typescript 6.772μs
 **functional typescript 5.952μs**
 
@@ -273,7 +285,7 @@ async typescript 6.772μs
 ![fit](assets/wtf_m.jpg)
 
 ---
-#RESULTS
+#from Async to FP
 async typescript 6.772μs
 functional typescript 5.952μs
 
@@ -281,7 +293,7 @@ functional typescript 5.952μs
 
 ---
 
-#RESULTS
+#from Async to FP
 **async typescript(_target es3_) 6.772μs**
 functional typescript(_target es3_) 5.952μs
 
@@ -289,7 +301,7 @@ functional typescript(_target es3_) 5.952μs
 
 ---
 
-#RESULTS
+#from Async to FP (ES3->ES2018)
 async typescript(_target es3_) 6.772μs
 **async typescript(_target es2018_) 2.004μs**
 functional typescript(_target es3_) 5.952μs
@@ -384,7 +396,7 @@ function calculateAmountService (order: Valid<Order>) {
 
 ---
 
-#RESULTS
+#from FP to FP-Checked
 async typescript 2.004μs
 functional typescript 5.636μs
 
@@ -392,7 +404,7 @@ functional typescript 5.636μs
 
 ---
 
-#RESULTS
+#from FP to FP-Checked
 async typescript 2.004μs
 functional typescript 5.636μs
 **checked functional typescript 5.402μs**
@@ -401,14 +413,11 @@ functional typescript 5.636μs
 
 ---
 
-#RESULTS
-Show typescript-simple.png
-
-![](assets/result_m.jpg)
+![](assets/typescript-simple.png)
 
 ---
 
-#RESULTS
+#from FP to FP-Checked
 - no performance penalty
 - slightly *faster* (one less `chain`?)
 - cognitive overhead
@@ -441,6 +450,23 @@ performance and maintenability
 ![fit](assets/rust_m.jpg)
 
 ---
+ 
+# What does *zero cost* mean?
+- *zero cost* for the abstractions you *do not use*
+- what you *do* use, cannot be done *any better*
+
+![](assets/bg_m.jpg)
+
+---
+
+# What does *zero cost* mean?
+- *zero cost* for the abstractions you *do not use*
+- what you *do* use, cannot be done *any better*
+- this means "zero *runtime overhead*"
+
+![](assets/bg_m.jpg)
+
+---
 
 # What does *zero cost* mean?
 - *zero cost* for the abstractions you *do not use*
@@ -454,22 +480,38 @@ performance and maintenability
 ---
 
 # A Rust implementation
-- faithful to the Typescript one
-- line by line adaptation
-- let's benchmark!
+- **faithful to the Typescript one**
 
 ![](assets/bg_m.jpg)
 
 ---
 
-#RESULTS
+# A Rust implementation
+- faithful to the Typescript one
+- **line by line adaptation**
+
+![](assets/bg_m.jpg)
+
+
+---
+
+# A Rust implementation
+- faithful to the Typescript one
+- line by line adaptation
+- **let's benchmark!**
+
+![](assets/bg_m.jpg)
+
+---
+
+#from ts to rust
 async typescript 2.004μs
 
 ![](assets/result_m.jpg)
 
 ---
 
-#RESULTS
+#from ts to rust
 async typescript 2.004μs
 **what do you expect?**
 
@@ -477,7 +519,7 @@ async typescript 2.004μs
 
 ---
 
-#RESULTS
+#from ts to rust
 async typescript 2.004μs
 **async rust (native) 0.2410μs**
 
@@ -485,7 +527,7 @@ async typescript 2.004μs
 
 ---
 
-#RESULTS
+#from ts to rust
 async typescript 2.004μs
 async rust (native) 0.2410μs
 **and 8x speedup?**
@@ -495,13 +537,74 @@ async rust (native) 0.2410μs
 ---
 
 # WAT?
+**does this make sense?**
+
+![](assets/bg_m.jpg)
+
+---
+
+# WAT?
+does this make sense?
+**is it a fair comparison?**
+
+![](assets/bg_m.jpg)
+
+---
+
+# WAT?
+does this make sense?
+is it a fair comparison?
+**let's investigate**
+
+![](assets/bg_m.jpg)
+
+---
+
+# WAT?
+does this make sense?
+is it a fair comparison?
+let's investigate
+**we start from scratch**
+
+![](assets/bg_m.jpg)
+
+---
+
+# WAT?
 does this make sense?
 is it a fair comparison?
 let's investigate
 we start from scratch
-with a synchronous typescript version
+**with a synchronous typescript version**
 
 ![](assets/bg_m.jpg)
+
+---
+
+# Start from Scratch
+**from *synchronous* typescript version**
+
+![](assets/bg_m.jpg)
+
+
+---
+
+# Start from Scratch
+from *synchronous* typescript version
+**then we add minimal abstractions**
+
+![](assets/bg_m.jpg)
+
+
+---
+
+# Start from Scratch
+from *synchronous* typescript version
+then we add minimal abstractions
+**one by one**
+
+![](assets/bg_m.jpg)
+
 
 ---
 
@@ -509,17 +612,10 @@ with a synchronous typescript version
 from *synchronous* typescript version
 then we add minimal abstractions
 one by one
-and benchmark each step
+**and benchmark each step**
 
 ![](assets/bg_m.jpg)
 
----
-
-#RESULTS
-Show typescript-full.png
-(briefly describe each abstraction step)
-
-![](assets/bg_m.jpg)
 
 ---
 
@@ -531,12 +627,24 @@ let's do the same with Rust...
 
 ![](assets/bg_m.jpg)
 
+
 ---
 
-#RESULTS
-Show typescript-rust.png
+![](assets/typescript-full.png)
+
+^
+(briefly describe each abstraction step)
+
+
+---
+
+[RUST CODE]
 
 ![](assets/bg_m.jpg)
+
+---
+
+![](assets/typescript-rust.png)
 
 ---
 <br>
@@ -553,10 +661,8 @@ what about the web? are we *forced* to pay for abstractions?
 ![](assets/step_m.jpg)
 
 ---
-#RESULTS
-Show typescript-wasm.png
 
-![](assets/result_m.jpg)
+![](assets/typescript-wasm.png)
 
 ---
 
@@ -577,10 +683,29 @@ Show typescript-wasm.png
 
 ---
 
-$$profit(t) = (revenue(t)*time2market)-cost(t), 
-\quad\quad \text{[$0>=time2market<=1$]}$$
+$$profit = revenue - cost$$
 
 ![](assets/summary_g.jpg)
+
+---
+
+$$profit = (revenue*time2market)-cost$$
+
+###where
+$$\quad\quad \text{[$0>=time2market<=1$]}$$
+
+
+![](assets/summary_g.jpg)
+
+---
+
+$$profit(t) = (revenue(t)*time2market(t))-cost(t)$$ 
+###where
+$$\quad\quad \text{[$0>=time2market<=1$]}$$
+
+![](assets/summary_g.jpg)
+
+
 
 ---
 
