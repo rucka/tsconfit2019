@@ -283,7 +283,7 @@ functional typescript 5.952μs
 
 #RESULTS
 **async typescript(_target es3_) 6.772μs**
-functional typescript 5.952μs
+functional typescript(_target es3_) 5.952μs
 
 ![](assets/result_m.jpg)
 
@@ -291,8 +291,9 @@ functional typescript 5.952μs
 
 #RESULTS
 async typescript(_target es3_) 6.772μs
-**async typescript(_target es6_) 2.004μs**
-functional typescript 5.636μs
+**async typescript(_target es2018_) 2.004μs**
+functional typescript(_target es3_) 5.952μs
+**functional typescript(_target es2018_) 5.636μs**
 
 ![](assets/result_m.jpg)
 
@@ -361,12 +362,7 @@ function calculateAmountService (order: Valid<Order>) {
     })
   )
 }
-function placeOrderService (order: Valid<Order>) {
-  return pipe(
-    calculateAmountService(order),
-    map(placedOrderSuccess)
-  )
-}
+
 
 ```
 ![](assets/bg_g.jpg)
@@ -389,8 +385,7 @@ function placeOrderService (order: Valid<Order>) {
 ---
 
 #RESULTS
-async typescript(_target es3_) 6.772μs
-async typescript(_target es6_) 2.004μs
+async typescript 2.004μs
 functional typescript 5.636μs
 
 ![](assets/result_m.jpg)
@@ -398,8 +393,7 @@ functional typescript 5.636μs
 ---
 
 #RESULTS
-async typescript(_target es3_) 6.772μs
-async typescript(_target es6_) 2.004μs
+async typescript 2.004μs
 functional typescript 5.636μs
 **checked functional typescript 5.402μs**
 
