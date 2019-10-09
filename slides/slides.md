@@ -32,7 +32,7 @@ ehm... I dont know, but it's the perfect moment to have a talk together about th
 ![](assets/legend.jpg)
 
 ---
-we'll analyse the cost of abstractions under two points of views: performance and manteinability
+we'll analyse the cost of abstractions under two points of view: performance and manteinability
 
 ^
 [G]
@@ -57,7 +57,7 @@ we'll analyse the cost of abstractions under two points of views: performance an
 ![](assets/cost.jpg)
 
 ^
-domanda al pubblico...
+ask the audience...
 
 ---
 
@@ -428,7 +428,7 @@ functional typescript 5.636μs
 
 ---
 
-![](assets/typescript-simple.png)
+![original](assets/typescript-simple.png)
 
 ---
 
@@ -634,32 +634,112 @@ one by one
 
 ---
 
-#What Happened?
+#Typescript Abstractions
+
+![original](assets/typescript-full.png)
+
+---
+
+#Typescript Abstractions
+plain Typescript is *fast*
+
+![original](assets/typescript-full-plain.png)
+
+---
+
+#Typescript Abstractions
+plain Typescript is *fast*
+abstractions built on it are *slow*
+
+![original](assets/typescript-full-abstract.png)
+
+---
+
+#Typescript Abstractions
 plain Typescript is *fast*
 abstractions built on it are *slow*
 the nodejs event loop does *not* help much
-let's do the same with Rust...
+
+![original](assets/typescript-full-event-loop.png)
+
+---
+
+#Typescript Abstractions
+plain Typescript is *fast*
+abstractions built on it are *slow*
+the nodejs event loop does *not* help much
+**let's do the same with Rust...**
+
+![original](assets/typescript-full.png)
+
+---
+
+### rust, plain
+
+```rust
+pub async fn process(order_id: &String) -> Result<f64, ()> {
+    match order_service(order_id).await {
+        Some(order) => {
+            let validation = validation_service(&order).await;
+            match validation {
+                Ok(order) => match place_order_service(order).await {
+                    Ok(res) => Ok(res.amount),
+                    Err(_) => Err(()),
+                },
+                _ => Err(()),
+            }
+        }
+        _ => Err(()),
+    }
+}
+```
+
+![](assets/bg_m.jpg)
+
+---
+
+### rust, idiomatic
+
+```rust
+pub async fn process(order_id: &String) -> Result<f64, ()> {
+    let order = order_service(order_id).await;
+    let validated = validation_service(order).await.map_err(|_| ())?;
+    Ok(place_order_service(validated).await.map_err(|_| ())?.amount)
+}
+```
+
+![](assets/bg_m.jpg)
+
+---
+
+### rust, composable
+
+```rust
+pub fn process(order_id: &'static String) ->
+        impl Future<Output = Result<f64, ()>> {
+    compose!(
+        order_service,
+        validation_service,
+        place_order_service,
+        map_order_amount
+    )(order_id)
+}
+```
 
 ![](assets/bg_m.jpg)
 
 
 ---
 
-![](assets/typescript-full.png)
+#We have seen rust...
 
-^
-(briefly describe each abstraction step)
+Should we measure it?
 
-
----
-
-[RUST CODE]
-
-![](assets/bg_m.jpg)
+![](assets/result_m.jpg)
 
 ---
 
-![](assets/typescript-rust.png)
+![original](assets/typescript-rust.png)
 
 ---
 <br>
@@ -677,7 +757,7 @@ what about the web? are we *forced* to pay for abstractions?
 
 ---
 
-![](assets/typescript-wasm.png)
+![original](assets/typescript-wasm.png)
 
 ---
 
