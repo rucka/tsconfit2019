@@ -4,17 +4,7 @@ set key textcolor rgb "white"
 set grid xtics ytics linestyle "dashed" lw 0.2 lc rgb "white"
 set output "typescript-full.png"
 plot \
-  "-" using 2:xticlabels(1) with lines lt rgb "red" title "Typescript → ES3", \
-  "-" using 2:xticlabels(1) with lines lt rgb "blue" title "Typescript → ES2018"
-Sync    0.186
-CB      1.268
-SyncFP  0.716
-CBasync 2.438
-Promise 3.106
-Async   6.772
-FP      5.952
-Checked 5.858
-e
+  "-" using 2:xticlabels(1) with lines lt rgb "blue" title "Typescript"
 Sync    0.188
 CB      0.636
 SyncFP  0.708
