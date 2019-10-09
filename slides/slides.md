@@ -32,12 +32,24 @@ ehm... I dont know, but it's the perfect moment to have a talk together about th
 ![](assets/legend.jpg)
 
 ---
+we'll analyse the cost of abstractions under two points of views: performance and manteinability
 
-![](assets/massimiliano.jpg)
+^
+[G]
 
 ---
 
 ![](assets/gianluca.jpg)
+
+^
+[G]
+
+---
+
+![](assets/massimiliano.jpg)
+
+^
+[M]
 
 ---
 <br>
@@ -101,9 +113,12 @@ const processor: AsyncProcessor = async (
 
 ---
 
+![](assets/tsVsJs.jpg)
 
 
-## typescript
+---
+
+#it's not all about performance
 
 - **no performace penalty**
 
@@ -111,7 +126,7 @@ const processor: AsyncProcessor = async (
 
 ---
 
-## typescript
+#it's not all about performance
 
 - no performace penalty
 - **cognitive overhead**
@@ -121,7 +136,7 @@ const processor: AsyncProcessor = async (
 
 ---
 
-## typescript
+#it's not all about performance
 
 - no performace penalty
 - cognitive overhead
