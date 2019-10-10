@@ -874,13 +874,45 @@ maintainability
 ![fit](assets/homer_doh_g.jpg)
 
 ---
+
 #summary
-- costs have different shapes
-- abstractions have different shapes
-- design decisions **involve** a costs
-- there are **no** zero cost abstractions, but...
-- ...we can choose **where** to incur costs
-- choose abstractions depending on the **context**
+there are different kinds of **abstractions**
+and there are different kinds of **costs**
+different abstractions **involve** different costs
+there are **no** zero cost abstractions, but...
+...we can choose **where** to incur costs!
+
+![](assets/summary.jpg)
+
+---
+
+#abstractions
+
+define our
+
+#**design space**
+
+![](assets/summary.jpg)
+
+---
+
+![original](assets/typescript-wasm-points.png)
+
+---
+
+![original](assets/typescript-wasm-no.png)
+
+---
+
+![original](assets/typescript-wasm-ok.png)
+
+---
+
+##choose abstractions
+
+depending on
+
+#**context**
 
 ![](assets/summary.jpg)
 
