@@ -881,40 +881,60 @@ and there are different kinds of **costs**
 different abstractions **involve** different costs
 there are **no** zero cost abstractions, but...
 ...we can choose **where** to incur costs!
+... [but]
 
 ![](assets/summary.jpg)
 
 ---
 
-#abstractions
+[#abstractions
 
 define our
 
-#**design space**
+#**design space**]
 
 ![](assets/summary.jpg)
 
----
-
-![original](assets/typescript-wasm-points.png)
-
----
-
-![original](assets/typescript-wasm-no.png)
+^
+spostare nell'immagine 
 
 ---
 
-![original](assets/typescript-wasm-ok.png)
+![original](assets/typescript-rust-points.png)
+
+^
+[aggiungere il testo della slide precedente nell'immagine e rimpicciolire le stelline]
 
 ---
 
-##choose abstractions
+[back to typescript]
+
+---
+
+![original](assets/typescript-rust-no.png)
+
+^
+[togliere rust, domanda al posto del no!]
+
+---
+
+![original](assets/typescript-rust-ok.png)
+
+^
+[togliere rust, mettere il testo in alto a sx "choose abstractions depending on context", la facciona da mettere a dx sotto la linea di typescript]
+
+
+---
+
+[##choose abstractions
 
 depending on
 
-#**context**
+#**context**]
 
 ![](assets/summary.jpg)
+
+^ [eliminare]
 
 ---
 
