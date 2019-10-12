@@ -1,3 +1,5 @@
+theme: Ostrich, 4
+
 ![](assets/cover.jpg)
 
 ---
