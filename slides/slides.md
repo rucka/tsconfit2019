@@ -78,7 +78,7 @@ ask the audience...
 
 ---
 
-###from typescript
+###compile from typescript
 
 ```javascript
 const processor: AsyncProcessor = async (
