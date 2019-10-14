@@ -70,34 +70,19 @@ ask the audience...
 
 
 ---
-### javascript
 
-```javascript
-const processor = async (orderId) => {
-  const order = await orderService(orderId)
-  if (order == null) {
-    return {
-      success: false
-    }
-  }
-  const validationResult = await validationService(order)
-  if (!validationResult.valid) {
-    return placedOrderFailed
-  }
-  return await placeOrderService(order)
-}
-```
+##consider **typescript**
+###as _abstraction_ 
+##over **javascript**
 
-![](assets/bg_g.jpg)
 
 ---
 
-###typescript
+###from typescript
 
 ```javascript
 const processor: AsyncProcessor = async (
-  orderId: string
-): Promise<PlacedOrderResult> => {
+  orderId: string): Promise<PlacedOrderResult> => {
   const order = await orderService(orderId)
   if (order == null) {
     return {
@@ -115,8 +100,25 @@ const processor: AsyncProcessor = async (
 
 ---
 
-![](assets/tsVsJs.jpg)
+###to javascript
 
+```javascript
+const processor                 = async (
+  orderId        )                             => {
+  const order = await orderService(orderId)
+  if (order == null) {
+    return {
+      success: false
+    }
+  }
+  const validationResult = await validationService(order)
+  if (!validationResult.valid) {
+    return placedOrderFailed
+  }
+  return await placeOrderService(order)
+}
+```
+![](assets/bg_g.jpg)
 
 ---
 
@@ -131,7 +133,7 @@ const processor: AsyncProcessor = async (
 #it's not all about performance
 
 - no performace penalty
-- **cognitive overhead**
+- **you will pay a *build time* cost**
 
 
 ![](assets/bg_g.jpg)
@@ -141,11 +143,14 @@ const processor: AsyncProcessor = async (
 #it's not all about performance
 
 - no performace penalty
-- cognitive overhead
-- **you will pay a *build time* cost**
-
+- you will pay a *build time* cost
+- **cognitive overhead**
 
 ![](assets/bg_g.jpg)
+
+---
+
+###[cognitive overhead]
 
 ---
 
