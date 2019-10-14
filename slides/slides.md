@@ -33,11 +33,8 @@ ehm... I dont know, but it's the perfect moment to have a talk together about th
 ---
 ![](assets/legend.jpg)
 
----
-we'll analyse the cost of abstractions under two points of view: performance and manteinability
-
 ^
-[G]
+we'll analyse the cost of abstractions under two points of view: performance and manteinability
 
 ---
 
