@@ -273,7 +273,7 @@ we add an abstraction layer using fp-ts in order to make the code more readable 
 
 ---
 
-###functional javascript
+###functional typescript
 
 ```javascript
   return pipe(
@@ -353,7 +353,7 @@ functional typescript(_target es3_) 5.952μs
 
 ---
 
-###checked functional javascript
+###checked functional typescript
 
 ```javascript
 type NotValid = Left<Error>
@@ -375,7 +375,7 @@ function validationService (o: Order): Validated<Order>  {
 
 ---
 
-###checked functional javascript
+###checked functional typescript
 
 ```javascript
 
@@ -400,7 +400,7 @@ function calculateAmountService (order: Valid<Order>) {
 
 ---
 
-###checked functional javascript
+###checked functional typescript
 
 ```javascript
 
