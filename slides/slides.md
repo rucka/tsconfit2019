@@ -147,7 +147,19 @@ const processor                 = async (
 
 ---
 
-###[cognitive overhead]
+#[cognitive overhead]
+
+**cognitive**: something we should *know*
+**overhead**: an *extra* effort
+
+---
+
+#[cognitive overhead]
+
+**cognitive**: something we should *know*
+**overhead**: an *extra* effort
+
+the **extra** learning effort **the whole team** must spend!
 
 ---
 
