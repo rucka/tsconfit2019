@@ -56,7 +56,7 @@ we'll analyse the cost of abstractions under two points of view: performance and
 ![](assets/cost.jpg)
 
 ^
-ask the audience...
+ask to the audience...
 
 ---
 
@@ -147,14 +147,14 @@ const processor                 = async (
 
 ---
 
-#[cognitive overhead]
+#cognitive overhead
 
 **cognitive**: something we should *know*
 **overhead**: an *extra* effort
 
 ---
 
-#[cognitive overhead]
+#cognitive overhead
 
 **cognitive**: something we should *know*
 **overhead**: an *extra* effort
