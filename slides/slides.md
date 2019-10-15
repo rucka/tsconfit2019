@@ -885,60 +885,49 @@ and there are different kinds of **costs**
 different abstractions **involve** different costs
 there are **no** zero cost abstractions, but...
 ...we can choose **where** to incur costs!
-... [but]
+**could we visualize it?**
 
 ![](assets/summary.jpg)
-
----
-
-[#abstractions
-
-define our
-
-#**design space**]
-
-![](assets/summary.jpg)
-
-^
-spostare nell'immagine 
 
 ---
 
 ![original](assets/typescript-rust-points.png)
 
-^
-[aggiungere il testo della slide precedente nell'immagine e rimpicciolire le stelline]
+---
+
+![original](assets/typescript-rust-tunnel.png)
 
 ---
 
-[back to typescript]
+![original](assets/typescript-rust-tunnel-ts.png)
 
 ---
 
-![original](assets/typescript-rust-no.png)
-
-^
-[togliere rust, domanda al posto del no!]
+![original](assets/typescript-rust-tunnel-fp.png)
 
 ---
 
-![original](assets/typescript-rust-ok.png)
-
-^
-[togliere rust, mettere il testo in alto a sx "choose abstractions depending on context", la facciona da mettere a dx sotto la linea di typescript]
-
+![original](assets/typescript-rust-tunnel-promise.png)
 
 ---
 
-[##choose abstractions
+![original](assets/typescript-rust-tunnel-async.png)
 
-depending on
+---
 
-#**context**]
+![original](assets/typescript-rust-context.png)
 
-![](assets/summary.jpg)
+---
 
-^ [eliminare]
+![original](assets/typescript-rust-context-fp.png)
+
+---
+
+![original](assets/typescript-rust-context-ts-async.png)
+
+---
+
+![original](assets/typescript-rust-context-rust.png)
 
 ---
 
