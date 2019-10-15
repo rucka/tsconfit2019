@@ -879,13 +879,58 @@ maintainability
 
 ---
 
-#summary
+#wrapping up
+there are different kinds of **abstractions**
+
+![](assets/summary.jpg)
+
+---
+
+#wrapping up
+there are different kinds of **abstractions**
+and there are different kinds of **costs**
+
+![](assets/summary.jpg)
+
+---
+
+#wrapping up
+there are different kinds of **abstractions**
+and there are different kinds of **costs**
+different abstractions **involve** different costs
+
+![](assets/summary.jpg)
+
+---
+
+#wrapping up
+there are different kinds of **abstractions**
+and there are different kinds of **costs**
+different abstractions **involve** different costs
+there are **no** zero cost abstractions, but...
+
+![](assets/summary.jpg)
+
+---
+
+#wrapping up
 there are different kinds of **abstractions**
 and there are different kinds of **costs**
 different abstractions **involve** different costs
 there are **no** zero cost abstractions, but...
 ...we can choose **where** to incur costs!
-**could we visualize it?**
+
+![](assets/summary.jpg)
+
+---
+
+#wrapping up
+there are different kinds of **abstractions**
+and there are different kinds of **costs**
+different abstractions **involve** different costs
+there are **no** zero cost abstractions, but...
+...we can choose **where** to incur costs!
+**how do we choose?**
 
 ![](assets/summary.jpg)
 
