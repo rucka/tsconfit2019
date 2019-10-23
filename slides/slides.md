@@ -194,7 +194,7 @@ the **extra** learning effort **the whole team** must spend!
 ###"buy a book" use case
 - create an order of books
 - validate the order
-- **place the order**
+- **compute and place the order**
 
 ![](assets/usecase.jpg)
 
@@ -209,7 +209,7 @@ the **extra** learning effort **the whole team** must spend!
 ##benchmark
 
 - "buy a book" use case
-- **500k different orders**
+- **process 500k orders**
 
 ![](assets/benchmark_m.jpg)
 
@@ -217,7 +217,7 @@ the **extra** learning effort **the whole team** must spend!
 ##benchmark
 
 - "buy a book" use case
-- 500k different orders
+- process 500k orders
 - **5% failure rate**
 
 ![](assets/benchmark_m.jpg)
@@ -226,7 +226,7 @@ the **extra** learning effort **the whole team** must spend!
 ##benchmark
 
 - "buy a book" use case
-- 500k different orders
+- process 500k orders
 - 5% failure rate
 - **measure mean order time**
 
@@ -330,8 +330,8 @@ functional typescript 5.952μs
 ---
 
 #from Async to FP
-**async typescript(_target es3_) 6.772μs**
-functional typescript(_target es3_) 5.952μs
+async typescript(**target es3**) 6.772μs
+functional typescript(**target es3**) 5.952μs
 
 ![](assets/result_m.jpg)
 
@@ -339,9 +339,9 @@ functional typescript(_target es3_) 5.952μs
 
 #from Async to FP (ES3->ES2018)
 async typescript(_target es3_) 6.772μs
-**async typescript(_target es2018_) 2.004μs**
+async typescript(**target es2018**) **2.004μs**
 functional typescript(_target es3_) 5.952μs
-**functional typescript(_target es2018_) 5.636μs**
+functional typescript(**target es2018**) **5.636μs**
 
 ![](assets/result_m.jpg)
 
@@ -358,7 +358,7 @@ functional typescript(_target es3_) 5.952μs
 ---
 
 - the same code can run with (hugely) different perfomance
-- **check default compiler options**
+- **the compiler is part of the abstraction implementation**
 
 ![](assets/lesson_m.jpg)
 
@@ -449,16 +449,16 @@ functional typescript 5.636μs
 
 ---
 
-![original](assets/typescript-simple.png)
-
----
-
 #from FP to FP-Checked
 - no performance penalty
 - slightly *faster* (one less `chain`?)
 - cognitive overhead
 
 ![](assets/result_g.jpg)
+
+---
+
+![original](assets/typescript-simple.png)
 
 ---
 
@@ -652,6 +652,95 @@ one by one
 
 ![](assets/bg_m.jpg)
 
+---
+
+# Abstraction Steps
+
+![](assets/bg_m.jpg)
+
+---
+
+# Abstraction Steps
+*synchronous* typescript
+
+![](assets/bg_m.jpg)
+
+---
+
+# Abstraction Steps
+*synchronous* typescript
+synchronous *functional* typescript
+
+![](assets/bg_m.jpg)
+
+---
+
+# Abstraction Steps
+*synchronous* typescript
+synchronous *functional* typescript
+synchronous *callbacks*
+
+![](assets/bg_m.jpg)
+
+---
+
+# Abstraction Steps
+*synchronous* typescript
+synchronous *functional* typescript
+synchronous *callbacks*
+*nextTick* callbacks
+
+![](assets/bg_m.jpg)
+
+---
+
+# Abstraction Steps
+*synchronous* typescript
+synchronous *functional* typescript
+synchronous *callbacks*
+*nextTick* callbacks
+promises
+
+![](assets/bg_m.jpg)
+
+---
+
+# Abstraction Steps
+*synchronous* typescript
+synchronous *functional* typescript
+synchronous *callbacks*
+*nextTick* callbacks
+promises
+async await
+
+![](assets/bg_m.jpg)
+
+---
+
+# Abstraction Steps
+*synchronous* typescript
+synchronous *functional* typescript
+synchronous *callbacks*
+*nextTick* callbacks
+promises
+async await
+*functional* tasks
+
+![](assets/bg_m.jpg)
+
+---
+
+# Abstraction Steps
+*synchronous* typescript
+synchronous *functional* typescript
+synchronous *callbacks*
+*nextTick* callbacks
+promises
+async await
+*functional* tasks
+*checked* types
+
+![](assets/bg_m.jpg)
 
 ---
 
