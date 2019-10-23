@@ -119,6 +119,11 @@ const processor                 = async (
 
 ---
 
+##code is _not modified_
+##code is **stripped**
+
+---
+
 #it's not all about performance
 
 - **no performace penalty**
