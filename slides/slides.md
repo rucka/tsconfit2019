@@ -15,6 +15,13 @@ Often I tell Massi about my adventures in functional programming structures like
 ---
 
 <br>
+
+![](assets/lecco.jpg)
+
+
+---
+
+<br>
 #What is the Cost of Abstractions? 
  
 ![](assets/lecco.jpg)
@@ -120,7 +127,7 @@ const processor                 = async (
 ---
 
 ##code is _not modified_
-##code is **stripped**
+##types are **stripped**
 
 ---
 
@@ -961,7 +968,9 @@ maintainability
 
 ---
 
-###can we achieve **both** performance and maintainability?
+###we know how to achieve 
+###__no__ performance __cost__ 
+###and still have maintainability...
 
 ![fit](assets/homer_doubt_g.jpg)
 
