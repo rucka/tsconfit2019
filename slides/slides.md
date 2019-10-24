@@ -8,9 +8,6 @@ theme: Ostrich, 4
 
 ![](assets/partenza.jpg)
 
-^
-This story starts with me and Massi traveling by train from Milan to Lecco to reach our Hyperfair office.
-Often I tell Massi about my adventures in functional programming structures like Monad, ADT and so on... and how them help me making my code more readable, safe and powerful.
 
 ---
 
@@ -26,22 +23,11 @@ Often I tell Massi about my adventures in functional programming structures like
  
 ![](assets/lecco.jpg)
 
-^
-The strange thing is every trip ends in the same way, with Massi asking me "Cool, but what about the cost of those abstractions?"
-My answer is always the same....
-
 ---
 ![150%](assets/ehm.png)
 
-^
-ehm... I dont know, but it's the perfect moment to have a talk together about this topic!
-
-
 ---
 ![](assets/legend.jpg)
-
-^
-we'll analyse the cost of abstractions under two points of view: performance and manteinability
 
 ---
 
@@ -61,9 +47,6 @@ we'll analyse the cost of abstractions under two points of view: performance and
 <br>
 #what does **cost** mean?
 ![](assets/cost.jpg)
-
-^
-ask to the audience...
 
 ---
 
@@ -292,9 +275,6 @@ the **extra** learning effort **the whole team** must spend!
 
 ![](assets/step_g.jpg)
 
-^
-we add an abstraction layer using fp-ts in order to make the code more readable and to simplify (task) composition
-
 ---
 
 ###functional typescript
@@ -473,9 +453,6 @@ functional typescript 5.636μs
 ###the best of 
 ###both worlds?
 ![](assets/magic_m.jpg)
-
-^
-performance and maintenability
 
 ---
 
@@ -862,9 +839,6 @@ Should we measure it?
 <br>
 #what about the web?
 ![](assets/web_m.jpg)
-
-^
-what about the web? are we *forced* to pay for abstractions?
 
 ---
 
