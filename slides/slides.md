@@ -661,7 +661,15 @@ one by one
 ---
 
 # Abstraction Steps
+***synchronous* typescript**
+
+![](assets/bg_m.jpg)
+
+---
+
+# Abstraction Steps
 *synchronous* typescript
+**synchronous *functional* typescript**
 
 ![](assets/bg_m.jpg)
 
@@ -670,6 +678,7 @@ one by one
 # Abstraction Steps
 *synchronous* typescript
 synchronous *functional* typescript
+**synchronous *callbacks***
 
 ![](assets/bg_m.jpg)
 
@@ -679,6 +688,7 @@ synchronous *functional* typescript
 *synchronous* typescript
 synchronous *functional* typescript
 synchronous *callbacks*
+***nextTick* callbacks**
 
 ![](assets/bg_m.jpg)
 
@@ -689,6 +699,7 @@ synchronous *callbacks*
 synchronous *functional* typescript
 synchronous *callbacks*
 *nextTick* callbacks
+**promises**
 
 ![](assets/bg_m.jpg)
 
@@ -700,6 +711,7 @@ synchronous *functional* typescript
 synchronous *callbacks*
 *nextTick* callbacks
 promises
+**async await**
 
 ![](assets/bg_m.jpg)
 
@@ -712,6 +724,7 @@ synchronous *callbacks*
 *nextTick* callbacks
 promises
 async await
+***functional* tasks**
 
 ![](assets/bg_m.jpg)
 
@@ -725,20 +738,7 @@ synchronous *callbacks*
 promises
 async await
 *functional* tasks
-
-![](assets/bg_m.jpg)
-
----
-
-# Abstraction Steps
-*synchronous* typescript
-synchronous *functional* typescript
-synchronous *callbacks*
-*nextTick* callbacks
-promises
-async await
-*functional* tasks
-*checked* types
+***checked* types**
 
 ![](assets/bg_m.jpg)
 
