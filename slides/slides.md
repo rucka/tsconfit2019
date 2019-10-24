@@ -82,7 +82,7 @@ ask to the audience...
 
 ---
 
-###compile from typescript
+###transpile from typescript
 
 ```javascript
 const processor: AsyncProcessor = async (
@@ -100,7 +100,7 @@ const processor: AsyncProcessor = async (
   return await placeOrderService(order)
 }
 ```
-![](assets/bg_g.jpg)
+![original](assets/code.jpg)
 
 ---
 
@@ -122,7 +122,7 @@ const processor                 = async (
   return await placeOrderService(order)
 }
 ```
-![](assets/bg_g.jpg)
+![original](assets/code.jpg)
 
 ---
 
@@ -268,7 +268,7 @@ the **extra** learning effort **the whole team** must spend!
   }
   return await placeOrderService(order)
 ```
-![](assets/bg_m.jpg)
+![original](assets/code.jpg)
 
 ---
 
@@ -307,7 +307,7 @@ we add an abstraction layer using fp-ts in order to make the code more readable 
   )
 ```
 
-![](assets/bg_g.jpg)
+![original](assets/code.jpg)
 
 ---
 #from Async to FP
@@ -395,7 +395,7 @@ function validationService (o: Order): Validated<Order>  {
 
 
 ```
-![](assets/bg_g.jpg)
+![original](assets/code.jpg)
 
 ---
 
@@ -420,7 +420,7 @@ function calculateAmountService (order: Valid<Order>) {
 
 
 ```
-![](assets/bg_g.jpg)
+![original](assets/code.jpg)
 
 ---
 
@@ -435,7 +435,7 @@ function calculateAmountService (order: Valid<Order>) {
     chain(mapTask(placeOrderService))
   )
 ```
-![](assets/bg_g.jpg)
+![original](assets/code.jpg)
 
 ---
 
@@ -811,7 +811,7 @@ pub async fn process(order_id: &String) -> Result<f64, ()> {
 }
 ```
 
-![](assets/bg_m.jpg)
+![original](assets/code.jpg)
 
 ---
 
@@ -825,7 +825,7 @@ pub async fn process(order_id: &String) -> Result<f64, ()> {
 }
 ```
 
-![](assets/bg_m.jpg)
+![original](assets/code.jpg)
 
 ---
 
@@ -843,7 +843,7 @@ pub fn process(order_id: &'static String) ->
 }
 ```
 
-![](assets/bg_m.jpg)
+![original](assets/code.jpg)
 
 
 ---
